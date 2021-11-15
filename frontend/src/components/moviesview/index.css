@@ -1,0 +1,22 @@
+.tablecontainer{
+    border-radius: 0px !important;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top:4rem;
+}
+
+.container>div{
+    margin:5px;
+    height:700px;
+}
+
+@media (max-width:375px){ 
+    .container>div{
+        height:650px;
+    }
+}

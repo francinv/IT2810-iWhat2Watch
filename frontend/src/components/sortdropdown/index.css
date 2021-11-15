@@ -1,0 +1,14 @@
+.select-container {
+    width:30%;
+    align-self: flex-end;
+    margin-left:auto;
+}
+
+@media (max-width:375px){
+    .select-container {
+        position: relative;
+        flex-direction: column;
+        max-width:100% !important;
+        min-width: 100% !important;
+    }
+} 

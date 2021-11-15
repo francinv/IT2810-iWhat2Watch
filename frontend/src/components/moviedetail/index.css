@@ -1,0 +1,121 @@
+.modal-container{
+    position: fixed;
+    width: 70%; /* Full width (cover the whole page) */
+    height: 500px; /* Full height (cover the whole page) */
+    margin-top:1rem;
+    margin-left:5rem;
+    background-color: rgba(0,0,0,0.9); /* Black background with opacity */
+    z-index: 1; /* Specify a stack order in case you're using a different order for other elements */
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    transition: width 0.5s;
+}
+
+@media (max-width:1080px){
+    .modal-container{
+        margin-left:1rem;
+    }
+    .modal-container img {
+        display: none;
+    }
+}
+
+@media (max-width:900px){
+    .modal-container{
+        width:60%;
+        margin-top:2rem;
+        margin-left:2rem;
+        height: 400px;
+    }
+    .modal-container img{
+        display: none;
+    }
+}
+
+@media (max-width:375px){
+    .modal-container{
+        width: auto !important;
+        height: auto;
+        margin-left: 0rem;
+    }
+    .content-flex {
+        display: flex;
+        flex-direction: column !important;
+    }
+    .extra-width{
+        width: 78.7% !important; 
+    }
+    .content-modal-container{
+        padding-top: 0rem !important;
+        padding-bottom: 40px;
+    }
+    .col-flex{
+        width:100% !important;
+        padding-bottom: 1rem;
+    }
+
+    .left-flex{
+        border-right: 0px solid white;
+    }
+}
+
+.extra-width {
+    width: 85%;
+}
+
+.modal-container img {
+    max-width: 50%;
+    max-height: 100%;
+}
+
+.content-modal-container{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-left: 0.8rem;
+    width: 100%;
+}
+
+.content-modal-container h1{
+    text-align: center;
+    font-weight: 200;
+}
+
+.content-header {
+    border-bottom: 0.5px solid white;
+}
+
+.content-flex {
+    display: flex;
+    width:100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.left-flex{
+    border-right: 0.5px solid white;
+    display: flex;
+    align-items: center;
+}
+    
+.right-flex{
+    margin-left:1rem;
+}
+
+.right-flex h3{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.col-flex{
+    height: 50%;
+    width:50%;
+    text-align: left;
+}
+
+.close-modal-btn {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+}
+   

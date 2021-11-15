@@ -1,0 +1,33 @@
+.sign-in-container{
+    position: absolute;
+    z-index: 1;
+    background-color: gray;
+    opacity: 90%;
+    top: 72px;
+    right: 0px;
+    color: white;
+    border-bottom-left-radius: 10px;
+    -webkit-box-shadow: -9px 10px 28px -6px #000000;
+    box-shadow: -9px 10px 28px -6px #000000;
+}
+.submit-sign{
+    background-color: rgba(0, 0, 0, 1) !important;
+    transition: background-color 0.2s;
+}
+
+.submit-sign:hover{
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.input-sign > div::after{
+    border-bottom: 2px solid white !important;
+}
+.input-sign > label.Mui-focused{
+    color:white !important;
+}
+
+@media (max-width:810px){
+    .sign-in-container{
+        top:64px;
+    }
+}
