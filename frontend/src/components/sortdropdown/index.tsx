@@ -8,6 +8,7 @@ import { StyleSheet } from "react-native";
 import { View } from "react-native";
 import { useFonts } from "expo-font";
 import { Entypo } from '@expo/vector-icons';
+import AppLoading from "expo-app-loading";
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setCriteria: (criteria: string) => dispatch(setSortByCriteria(criteria)),
@@ -31,27 +32,32 @@ export default function SortDropDown() {
     setCriteria(sortBy);
   }, [sortBy]);
 
-  return (
-    <View style={styles.dropdownContainer}>
-      <RNPickerSelect
-        onValueChange={(value) => setSortBy(value)}
-        placeholder={{label:'Sort By', value: '', color:'black'}}
-        value={sortBy}
-        items={[
-          {label: 'Title (Ascending)', value: 'title' },
-          {label: 'Title (Decreasing)', value: '-title' },
-          {label: 'Release Year (Increasing)', value: 'release_date' },
-          {label: 'Release Year (Decreasing)', value: '-release_date' },
-        ]}
-        style={pickerSelectStyles}
-        Icon={() => {
-          return(
-            <Entypo name="chevron-down" size={30} color="black" style={{top:5, right:5}}/>
-          )
-        }}
-      />
-    </View>
-  );
+  if (!fontsLoaded) {
+    return <AppLoading />
+  } 
+  else {
+    return (
+      <View style={styles.dropdownContainer}>
+        <RNPickerSelect
+          onValueChange={(value) => setSortBy(value)}
+          placeholder={{label:'Sort By', value: '', color:'black'}}
+          value={sortBy}
+          items={[
+            {label: 'Title (Ascending)', value: 'title' },
+            {label: 'Title (Decreasing)', value: '-title' },
+            {label: 'Release Year (Increasing)', value: 'release_date' },
+            {label: 'Release Year (Decreasing)', value: '-release_date' },
+          ]}
+          style={pickerSelectStyles}
+          Icon={() => {
+            return(
+              <Entypo name="chevron-down" size={30} color="black" style={{top:5, right:5}}/>
+            )
+          }}
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

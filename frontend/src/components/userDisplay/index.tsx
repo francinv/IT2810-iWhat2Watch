@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import {selectUserIsLoggedIn, selectUserName} from '../../services/selectors';
 import { StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 /**
  * This is a simple component that displays the username of the logged in user.
  * We use redux to determine the logged in user.
@@ -18,14 +19,19 @@ const UserDisplay: React.FC = () => {
 
     if (!isLoggedIn){
         return null;
+    } 
+    if (!fontsLoaded) {
+        return <AppLoading />
     }
-    return(
-        <View>
-            <Text style={styles.titleDisplay}> 
-                Hello, {username}!
-            </Text>
-        </View>
-    )
+    else {
+        return(
+            <View>
+                <Text style={styles.titleDisplay}> 
+                    Hello, {username}!
+                </Text>
+            </View>
+        )
+    }
 }
 
 export default UserDisplay;
