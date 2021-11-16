@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-
-import './index.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faHeart} from '@fortawesome/free-solid-svg-icons';
+import { IconButton } from 'react-native-paper';
 import MovieService from "../../services/index";
 
 interface FavButtonProps {
@@ -57,13 +54,12 @@ const FavButton: React.FC<FavButtonProps> =({isFavorited, userName, id}) => {
 
 
     return(
-        <>
-            <button className="btn-fav" onClick={() => 
-                {clickFavorite(!favorited)
-                console.log("Set favorite as", !favorited)}}>
-                <FontAwesomeIcon icon={faHeart} color={favorited ? 'red' : 'lightgray'}></FontAwesomeIcon>
-            </button>
-        </>
+        <IconButton
+          icon = "heart"
+          onPress={() => 
+            {clickFavorite(!favorited)}}
+          color={favorited ? 'red' : 'lightgray'} 
+        />
     )
 }
 

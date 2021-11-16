@@ -1,78 +1,15 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import "./index.css";
-import { alpha, styled } from "@mui/material/styles";
-import {
-  Button,
-  IconButton,
-  InputBase,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import { AccountCircle } from "@mui/icons-material";
 import { useAppDispatch } from "../../services/hooks";
 import { Dispatch } from "redux";
 import { setSearchQuery } from "../../pages/mainPageSlice";
 import { logOut } from "../login/loginslice"
 import { selectUserIsLoggedIn } from "../../services/selectors";
-import PersonIcon from '@mui/icons-material/Person';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from "react";
 import SignIn from "../login";
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: "1rem",
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
-
-const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  color:theme.palette.common.white,
-  backgroundColor:theme.palette.common.black,
-  borderRadius:"0px",
-  paddingTop:"10px",
-  border:"0.5px solid white",
-  transition:"background-color 0.75s",
-  borderTopRightRadius:"4px",
-  borderBottomRightRadius:"4px",
-  "&:hover": {
-    backgroundColor: theme.palette.common.white,
-    color:theme.palette.common.black,
-    transition:"background-color 0.75s",
-  },
-}));
+import { Appbar } from "react-native-paper";
+import { StyleSheet } from "react-native";
+import { useFonts, Quicksand_600SemiBold} from '@expo-google-fonts/quicksand';
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setSearch: (query: string) => dispatch(setSearchQuery(query)),
@@ -96,64 +33,44 @@ const NavBar: React.FC<NavBarProps> = ({isLoginModalVisible, onCloseClick}) => {
   const { setSearch, setLogOut} = actionDispatch(useAppDispatch());
   const isLoggedIn = useSelector(selectUserIsLoggedIn)
 
-  const searchEvent = () => {
-    setSearch(localSearch);
+  let [fontsLoaded] = useFonts({
+    'Quicksand-SemiBold': require('../../assets/fonts/Quicksand-SemiBold.ttf'),
+})
+
+  // const searchEvent = () => {
+  //   setSearch(localSearch);
+  // }
+
+  const handleMenu = () => {
+    console.log("TODO, must fix filter/sidebar");
   }
 
 
-  const keyPress = (event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    if (event.keyCode === 13) {
-      setSearch(localSearch);
-    }
-  };
-
-  function inputChange(
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) {
-    setLocalSearch(event.target.value);
+  const handleUser = () => {
+    console.log("TODO, must fix login modal");
   }
+
+
+  // const keyPress = (event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  //   if (event.keyCode === 13) {
+  //     setSearch(localSearch);
+  //   }
+  // };
+
+  // function inputChange(
+  //   event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  // ) {
+  //   setLocalSearch(event.target.value);
+  // }
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <SignIn  isLoginModalVisible={isLoginModalVisible} onCloseClick={onCloseClick}/>
-      <AppBar className="navBar" id="nav-bar">
-        <Toolbar>
-          <Typography
-            variant="h2"
-            noWrap
-            component="div"
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", sm: "block" },
-              textAlign: "left",
-            }}
-            className="text-navbar"
-          >
-            What to Watch?
-          </Typography>
-          <Search className="search-div" id="search-field-in-navbar">
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              onKeyDown={keyPress}
-              onChange={(event) => {
-                inputChange(event);
-              }}
-              autoFocus={true}
-              className="input-search"
-            />
-            <StyledIconButton onClick={searchEvent}>
-              <SearchIcon />
-            </StyledIconButton>
-          </Search>
-          {isLoggedIn 
-              ? <button className="sign-btn" onClick={()=> {setLogOut()
-                window.location.reload()}}> <FontAwesomeIcon icon={faUser}/> <p className="btn-text">Sign out</p> </button>
-              : <button className="sign-btn" onClick={onCloseClick}> <FontAwesomeIcon icon={faUser} /> <p className="btn-text">Sign in</p> </button>}
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <Appbar.Header style={{backgroundColor:'black'}}>
+      <Appbar.Action icon="menu" />
+      <Appbar.Content title="What To Watch?" titleStyle={{fontFamily:'Quicksand-SemiBold', fontSize:30}}/>
+      <Appbar.Action icon="account" />
+    </Appbar.Header>
   );
 }
 
 export default NavBar;
+
