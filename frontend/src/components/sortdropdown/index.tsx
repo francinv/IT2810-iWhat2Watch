@@ -1,17 +1,13 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import "./index.css";
-import { SortBy } from "../../util/sortingTypes";
+import React, { useState } from "react";
 import { Dispatch } from "redux";
-
 import { useEffect } from "react";
-
 import { setSortByCriteria } from "../../pages/mainPageSlice";
 import { useAppDispatch } from "../../services/hooks";
+import RNPickerSelect from 'react-native-picker-select';
+import { StyleSheet } from "react-native";
+import { View } from "react-native";
+import { useFonts } from "expo-font";
+import { Entypo } from '@expo/vector-icons';
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setCriteria: (criteria: string) => dispatch(setSortByCriteria(criteria)),
@@ -24,39 +20,72 @@ const actionDispatch = (dispatch: Dispatch) => ({
  * 
  */
 export default function SortDropDown() {
-  const [sortBy, setSortBy] = React.useState("");
-
-  const handleSortBy = (event: SelectChangeEvent) => {
-    console.log("QWsortQuery", sortBy);
-    console.log("Eventvalue", event.target.value);
-    setSortBy(event.target.value);
-  };
+  const [open, setOpen] = useState(false);
+  const [sortBy, setSortBy] = useState('');
   const { setCriteria } = actionDispatch(useAppDispatch());
 
+  let [fontsLoaded] = useFonts({
+    'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf'),
+  })
   useEffect(() => {
     setCriteria(sortBy);
   }, [sortBy]);
 
   return (
-    <Box className="select-container" sx={{ display: "flex", minWidth: 300 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="sort-drop-down"
-          value={sortBy}
-          label="Sort by"
-          onChange={handleSortBy}
-        >
-          <MenuItem value={SortBy.AlphabeticalAsc}>Title (Increasing)</MenuItem>
-          <MenuItem value={SortBy.AlphabeticalDesc}>
-            Title (Decreasing)
-          </MenuItem>
-          <MenuItem value={SortBy.YearAsc}>Release Year (Increasing)</MenuItem>
-          <MenuItem value={SortBy.YearDesc}>Release Year (Decreasing)</MenuItem>
-          <MenuItem value={SortBy.Clear}>None</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+    <View style={styles.dropdownContainer}>
+      <RNPickerSelect
+        onValueChange={(value) => setSortBy(value)}
+        placeholder={{label:'Sort By', value: '', color:'black'}}
+        value={sortBy}
+        items={[
+          {label: 'Title (Ascending)', value: 'title' },
+          {label: 'Title (Decreasing)', value: '-title' },
+          {label: 'Release Year (Increasing)', value: 'release_date' },
+          {label: 'Release Year (Decreasing)', value: '-release_date' },
+        ]}
+        style={pickerSelectStyles}
+        Icon={() => {
+          return(
+            <Entypo name="chevron-down" size={30} color="black" style={{top:5, right:5}}/>
+          )
+        }}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  dropdownContainer: {
+      margin: 10,
+      width: 'auto',
+  },
+})
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+    fontFamily:'Quicksand-Regular',
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'gray',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+    fontFamily:'Quicksand-Regular',
+  },
+  placeholder: {
+    color: 'black',
+  },
+  
+});

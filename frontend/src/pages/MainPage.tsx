@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import React,{ FunctionComponent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   selectNextPage,
@@ -15,12 +15,12 @@ import { Dispatch } from "redux";
 import { setMovies } from "./mainPageSlice";
 import { searchMovies } from "../services/__generated__/searchMovies";
 import { useAppDispatch } from "../services/hooks";
-import { Row, Col } from "react-bootstrap";
-import "./MainPage.css";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 import SortDropDown from "../components/sortdropdown";
 import MovieTable from "../components/moviesview";
 import UserDisplay from "../components/userDisplay";
+import { ScrollView, View } from "react-native";
+import styles from "./styles";
 
 
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -93,28 +93,18 @@ export const MainPage: FunctionComponent = () => {
 
   
   return (
-    <>
-      <Row>
-        <Col>
-          <NavBar onCloseClick={toggleLogInModal} isLoginModalVisible={isLoginModalVisible}/>
-        </Col>
-      </Row>
-      <div className="innercontainer" onClick={closeLoginModal}>
-        <SideBar />
-        <div className="moviecontainer" id="movie-container" onClick={closeModal}>
-          <div className="upper-div-container">
-            <UserDisplay />
-            <SortDropDown />
-          </div>
-          <BottomScrollListener onBottom={fetchMore} />
-          <MovieTable
-            onBackDropClick={toggleModal}
-            isModalVisible={isModalVisible}
-          />
-        </div>
-      </div>
-    </>
+    <View>
+      <View>
+        <NavBar onCloseClick={toggleLogInModal} isLoginModalVisible={isLoginModalVisible}/>
+      </View>
+      <View style={[styles.displayContainer]}>
+        <UserDisplay />
+        <SortDropDown />
+      </View>
+      <View>
+        <MovieTable onBackDropClick={toggleModal} isModalVisible={isModalVisible}/>
+      </View>
+    </View>
   );
 };
 
-export default MainPage;

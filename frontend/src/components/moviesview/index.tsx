@@ -1,23 +1,11 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import "./index.css";
 import { selectMovies, selectUserIsLoggedIn, selectUserName } from "../../services/selectors";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
-import { useState } from "react";
-import BaseModalWrapper from "../moviedetail/BaseModalWrapper";
-import {
-  formatDateAsString,
-  convertUnixDateToDate,
-} from "../../util/dateConverter";
-
 import { searchMovies_getMoviesBySearch } from "../../services/__generated__/searchMovies"
 import FavButton from "../favButton";
+import { Card, Title } from "react-native-paper";
+import { StyleSheet, SafeAreaView, FlatList, View } from "react-native";
+import { useFonts } from "@expo-google-fonts/inter";
 
 interface MovieTableProps {
   onBackDropClick: () => void;
@@ -30,14 +18,17 @@ interface MovieTableProps {
  * them based on movies fetched form the database.
  */
 
+
 const MovieTable: React.FC<MovieTableProps> = ({
   isModalVisible,
   onBackDropClick,
 }) => {
   const movies = useSelector(selectMovies);
-  const isLoggedIn = useSelector(selectUserIsLoggedIn)
+  const isLoggedIn = useSelector(selectUserIsLoggedIn);
   const userName = useSelector(selectUserName)
-  const [modalMovie, setModalMovie] = useState(null!);
+  const [fontsLoaded] = useFonts({
+    'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf')
+  })
 
   function isFavorited(movie: searchMovies_getMoviesBySearch): boolean {
     if (movie === null || !userName ) {
@@ -46,45 +37,61 @@ const MovieTable: React.FC<MovieTableProps> = ({
     return movie.favoritedByUser.includes(userName)
   }
 
+  const Movie = ({item}) => (
+    <Card style={styles.cardContainer}>
+      <View>
+        <Card.Cover source={{uri: item?.poster}} style={styles.cover}/>
+      </View>
+      <Card.Content style={styles.contentContainer}>
+        { isLoggedIn
+          ? <FavButton isFavorited={isFavorited(item)} userName={userName !== undefined ? userName : ""} id={item.id}/>
+          : null
+        }
+        <Title style={styles.title}>{item?.title}</Title>
+      </Card.Content>
+            
+    </Card>
+  )
+
+  const renderItem = ({item}) => {
+    return(
+      <Movie
+        item={item}
+      />
+    );
+  };
+
   return (
-    <>
-      <BaseModalWrapper isModalVisible={isModalVisible} movie={modalMovie!} onCloseClick={onBackDropClick}/>
-      <div className="container">
-      {
-        movies?.map((movie: any) => (
-          
-            <Card sx={{ maxWidth: 345, height:'100%'}}>
-              <CardActionArea className="movie-item-card" onClick={()=>{
-                setModalMovie(movie);
-                onBackDropClick();
-              }}>
-                <CardMedia
-                  component="img"
-                  height="auto"
-                  width="auto"
-                  image={movie?.poster}
-                  alt="Movie poster"
-                />
-              </CardActionArea>
-              <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {movie?.title}
-                  </Typography>
-                  {isLoggedIn ? <FavButton isFavorited={isFavorited(movie)} userName={userName !== undefined ? userName : ""} id={movie.id}/> : null}
-                  <Typography variant="body2" color="text.secondary">
-                    Release date: {formatDateAsString(
-                      convertUnixDateToDate(movie?.release_date)
-                    )}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {(movie.genres.length > 1 ? "Genres: " : "Genre: ")} {movie?.genres.join(", ")}
-                  </Typography>
-                </CardContent>
-            </Card>
-        ))}
-      </div>
-  </>  
+      <SafeAreaView>
+        <FlatList
+          data={movies}
+          renderItem={renderItem}
+          keyExtractor={(movie) => movie.id}
+          numColumns={2}
+        />
+      </SafeAreaView>
   )
 }
 
 export default MovieTable;
+
+const styles = StyleSheet.create({
+  cardContainer: {
+    margin:10,
+    flex: 1,
+    flexDirection: 'column',
+  },
+  title: {
+    fontFamily:'Quicksand-Regular',
+    fontSize:20,
+  },
+  cover: {
+    maxHeight:'100%',
+    maxWidth:'100%',
+  },
+  contentContainer: {
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+  }
+})

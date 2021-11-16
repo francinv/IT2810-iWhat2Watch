@@ -1,7 +1,4 @@
 import React from "react";
-import './index.css';
-import CloseIcon from '@mui/icons-material/Close';
-import { IconButton } from "@mui/material";
 import { selectUserName, selectUserIsLoggedIn } from "../../services/selectors"
 import { useSelector } from "react-redux";
 import {
@@ -22,36 +19,8 @@ interface ModalProps {
  * @returns a Modal with MovieDetal.
  */
 const MovieModal: React.FC<ModalProps> = ({movie, onCloseClick}) => {
-    let closeButton = document.body.querySelector(".closemenu");
-    closeButton?.addEventListener("click", setClass);
-    
-    let movieclick = document.body.querySelector(".movie-item-card");
-    movieclick?.addEventListener("click", setWidth);
-
     const userName = useSelector(selectUserName)
     const isLoggedIn = useSelector(selectUserIsLoggedIn)
-
-    function setWidth(this: HTMLElement, ev: Event){
-        ev.preventDefault();
-        let prosidebar = document.querySelector(".pro-sidebar");
-        let modalcont = document.querySelector(".modal-container");
-        console.log("This is run");
-        if (prosidebar?.classList.contains('collapsed')){
-            modalcont?.classList.add('extra-width');
-        }
-    }
-
-    function setClass(this: HTMLElement, ev: Event){
-        ev.preventDefault();
-        let prosidebar = document.querySelector(".pro-sidebar");
-        let modalcont = document.querySelector(".modal-container");
-        if (!prosidebar?.classList.contains('collapsed')){
-            modalcont?.classList.add('extra-width');
-        }   
-        else{
-            modalcont?.classList.remove('extra-width');
-        }
-    }
 
     function getReducedArray(array: Array<any>): Array<any> {
         const temp = [...array]
