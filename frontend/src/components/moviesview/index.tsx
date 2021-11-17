@@ -6,11 +6,9 @@ import FavButton from "../favButton";
 import { Card, Title } from "react-native-paper";
 import { StyleSheet, SafeAreaView, FlatList, View } from "react-native";
 import { useFonts } from "@expo-google-fonts/inter";
+import AppLoading from 'expo-app-loading';
+import MovieModal from "../moviedetail/MovieModal";
 
-interface MovieTableProps {
-  onBackDropClick: () => void;
-  isModalVisible: boolean;
-}
 
 /**
  * This is a component displaying all the movies. 
@@ -19,13 +17,13 @@ interface MovieTableProps {
  */
 
 
-const MovieTable: React.FC<MovieTableProps> = ({
-  isModalVisible,
-  onBackDropClick,
-}) => {
+const MovieTable: React.FC = () => {
   const movies = useSelector(selectMovies);
   const isLoggedIn = useSelector(selectUserIsLoggedIn);
   const userName = useSelector(selectUserName)
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMovie, setModalMovie] = useState('');
+
   const [fontsLoaded] = useFonts({
     'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf')
   })
@@ -38,7 +36,15 @@ const MovieTable: React.FC<MovieTableProps> = ({
   }
 
   const Movie = ({item}) => (
-    <Card style={styles.cardContainer}>
+    <Card 
+      style={styles.cardContainer} 
+      onPress={
+        () => {
+          setModalVisible(true);
+          setModalMovie(item);
+        }
+      }
+      >
       <View>
         <Card.Cover source={{uri: item?.poster}} style={styles.cover}/>
       </View>
@@ -49,7 +55,6 @@ const MovieTable: React.FC<MovieTableProps> = ({
         }
         <Title style={styles.title}>{item?.title}</Title>
       </Card.Content>
-            
     </Card>
   )
 
@@ -61,16 +66,21 @@ const MovieTable: React.FC<MovieTableProps> = ({
     );
   };
 
-  return (
-      <SafeAreaView>
-        <FlatList
-          data={movies}
-          renderItem={renderItem}
-          keyExtractor={(movie) => movie.id}
-          numColumns={2}
-        />
-      </SafeAreaView>
-  )
+  if (!fontsLoaded) {
+    return <AppLoading />
+  } else {
+    return (
+        <SafeAreaView>
+          <FlatList
+            data={movies}
+            renderItem={renderItem}
+            keyExtractor={(movie) => movie.id}
+            numColumns={2}
+          />
+          <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/>
+        </SafeAreaView>
+    )
+  }
 }
 
 export default MovieTable;
@@ -93,5 +103,5 @@ const styles = StyleSheet.create({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-  }
+  },
 })

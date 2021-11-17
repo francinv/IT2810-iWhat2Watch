@@ -10,6 +10,7 @@ import SignIn from "../login";
 import { Appbar } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { useFonts, Quicksand_600SemiBold} from '@expo-google-fonts/quicksand';
+import AppLoading from "expo-app-loading";
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setSearch: (query: string) => dispatch(setSearchQuery(query)),
@@ -35,7 +36,7 @@ const NavBar: React.FC<NavBarProps> = ({isLoginModalVisible, onCloseClick}) => {
 
   let [fontsLoaded] = useFonts({
     'Quicksand-SemiBold': require('../../assets/fonts/Quicksand-SemiBold.ttf'),
-})
+  })
 
   // const searchEvent = () => {
   //   setSearch(localSearch);
@@ -63,13 +64,18 @@ const NavBar: React.FC<NavBarProps> = ({isLoginModalVisible, onCloseClick}) => {
   //   setLocalSearch(event.target.value);
   // }
 
-  return (
-    <Appbar.Header style={{backgroundColor:'black'}}>
-      <Appbar.Action icon="menu" />
-      <Appbar.Content title="What To Watch?" titleStyle={{fontFamily:'Quicksand-SemiBold', fontSize:30}}/>
-      <Appbar.Action icon="account" />
-    </Appbar.Header>
-  );
+  if (!fontsLoaded) {
+    return <AppLoading />
+  }
+  else {
+    return (
+      <Appbar.Header style={{backgroundColor:'black'}}>
+        <Appbar.Action icon="menu" />
+        <Appbar.Content title="What To Watch?" titleStyle={{fontFamily:'Quicksand-SemiBold', fontSize:30}}/>
+        <Appbar.Action icon="account" />
+      </Appbar.Header>
+    );
+  }
 }
 
 export default NavBar;

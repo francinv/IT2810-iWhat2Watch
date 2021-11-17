@@ -69,21 +69,11 @@ export const MainPage: FunctionComponent = () => {
     fetchMovies();
   }, [filterSearchQuery, filterGenre, filterDateStart, filterDateEnd, sortBy]);
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const toggleModal = () => {
-    setIsModalVisible((wasModalVisible) => !wasModalVisible);
-  };
-
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const toggleLogInModal = () => {
     setIsLoginModalVisible((wasModalVisible) => !wasModalVisible);
   };
 
-  const closeModal = () => {
-    if (isModalVisible) {
-      setIsModalVisible(false);
-    }
-  };
 
   const closeLoginModal = () => {
     if (isLoginModalVisible){
@@ -102,7 +92,7 @@ export const MainPage: FunctionComponent = () => {
         <SortDropDown />
       </View>
       <View>
-        <MovieTable onBackDropClick={toggleModal} isModalVisible={isModalVisible}/>
+        <MovieTable/>
       </View>
     </View>
   );
