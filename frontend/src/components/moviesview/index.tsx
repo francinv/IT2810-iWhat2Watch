@@ -99,12 +99,11 @@ const styles = StyleSheet.create({
     fontSize:20,
   },
   cover: {
-    maxHeight:'100%',
-    maxWidth:'100%',
+    width:'100%',
+    height:250,
   },
   contentContainer: {
-    display:'flex',
-    justifyContent:'center',
+    width:'100%',
     alignItems:'center',
   },
 })
