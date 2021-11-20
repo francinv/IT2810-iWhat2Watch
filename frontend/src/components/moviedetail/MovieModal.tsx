@@ -69,9 +69,9 @@ const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisi
                                     source={{
                                         uri: movie?.poster
                                     }}
-                                    style={{width:'50%', height:400, marginRight:5}}
+                                    style={{height:400, width:'62%',}}
                                 />
-                                <View style={{height:'100%', width: '50%'}}>
+                                <View style={{height:'100%', width: '50%', padding:5,}}>
                                     <Text style={[styles.text, styles.modalTitle]}>{movie?.title}</Text>
                                     <View style={styles.about}>
                                         <View style={styles.aboutContentContainer}>
@@ -139,13 +139,16 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontFamily:'Quicksand-Medium',
-        fontSize: 40,
+        fontSize: 30,
         width:'100%',
         marginLeft:5,
     },
     headerContainer: {
+        padding:10,
         display:'flex',
         flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
     },
     contentContainer: {
         display:'flex',
