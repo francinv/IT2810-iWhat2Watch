@@ -25,7 +25,7 @@ const UserDisplay: React.FC = () => {
     }
     else {
         return(
-            <View>
+            <View style={styles.displayContainer}>
                 <Text style={styles.titleDisplay}> 
                     Hello, {username}!
                 </Text>
@@ -43,5 +43,8 @@ const styles = StyleSheet.create({
         fontSize: 28,
         margin: 10,
         fontFamily: 'Quicksand-Medium',
+    },
+    displayContainer: {
+        zIndex:0,
     }
 })
