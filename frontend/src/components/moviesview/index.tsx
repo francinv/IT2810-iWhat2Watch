@@ -70,7 +70,7 @@ const MovieTable: React.FC = () => {
     return <AppLoading />
   } else {
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.movieContainer}>
           <FlatList
             data={movies}
             renderItem={renderItem}
@@ -86,6 +86,9 @@ const MovieTable: React.FC = () => {
 export default MovieTable;
 
 const styles = StyleSheet.create({
+  movieContainer: {
+    zIndex:0,
+  },
   cardContainer: {
     margin:10,
     flex: 1,
