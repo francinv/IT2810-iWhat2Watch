@@ -20,6 +20,8 @@ const actionDispatch = (dispatch: Dispatch) => ({
 interface NavBarProps{
   isLoginModalVisible:boolean;
   onCloseClick: () => void;
+  closeSideBar: () => void;
+  isSideBarVisible:boolean;
 }
 
 /**
@@ -29,40 +31,25 @@ interface NavBarProps{
  * @param isLoginModalVisible, onCloseClick 
  * @returns header to show.
  */
-const NavBar: React.FC<NavBarProps> = ({isLoginModalVisible, onCloseClick}) => {
-  const [localSearch, setLocalSearch] = React.useState<string>("");
-  const { setSearch, setLogOut} = actionDispatch(useAppDispatch());
+const NavBar: React.FC<NavBarProps> = ({isLoginModalVisible, onCloseClick, closeSideBar, isSideBarVisible}) => {
+  const {setLogOut} = actionDispatch(useAppDispatch());
   const isLoggedIn = useSelector(selectUserIsLoggedIn)
 
   let [fontsLoaded] = useFonts({
     'Quicksand-SemiBold': require('../../assets/fonts/Quicksand-SemiBold.ttf'),
   })
 
-  // const searchEvent = () => {
-  //   setSearch(localSearch);
-  // }
-
-  const handleMenu = () => {
-    console.log("TODO, must fix filter/sidebar");
-  }
-
-
   const handleUser = () => {
     console.log("TODO, must fix login modal");
   }
 
-
-  // const keyPress = (event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-  //   if (event.keyCode === 13) {
-  //     setSearch(localSearch);
-  //   }
-  // };
-
-  // function inputChange(
-  //   event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  // ) {
-  //   setLocalSearch(event.target.value);
-  // }
+  const getIcon = () => {
+    if (isSideBarVisible) {
+      return "menu-open"
+    } else {
+      return "menu"
+    }
+  }
 
   if (!fontsLoaded) {
     return <AppLoading />
@@ -70,7 +57,10 @@ const NavBar: React.FC<NavBarProps> = ({isLoginModalVisible, onCloseClick}) => {
   else {
     return (
       <Appbar.Header style={{backgroundColor:'black'}}>
-        <Appbar.Action icon="menu" />
+        <Appbar.Action 
+          icon={getIcon()}
+          onPress={closeSideBar}
+        />
         <Appbar.Content title="What To Watch?" titleStyle={{fontFamily:'Quicksand-SemiBold', fontSize:30}}/>
         <Appbar.Action icon="account" />
       </Appbar.Header>

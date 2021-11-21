@@ -1,31 +1,38 @@
-import { FunctionComponent, useState } from "react";
-import Box from "@mui/material/Box";
-import Checkbox from "@mui/material/Checkbox";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Button, { ButtonProps } from "@mui/material/Button";
-import MovieCreationOutlinedIcon from "@mui/icons-material/MovieCreationOutlined";
-import { styled } from "@mui/material/styles";
+import React,{ FunctionComponent, useState } from "react";
 import { useAppDispatch } from "../../services/hooks";
 import { Dispatch } from "redux";
 import { setFilterGenres } from "../../pages/mainPageSlice";
-
-export interface FilterByGenreProps {
-  genres: string[];
-}
-
-const FilterButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  backgroundColor: "#fff",
-  color: "#000",
-  "&:hover": {
-    backgroundColor: "#cccccc",
-    color: "#000",
-  },
-}));
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import MultiSelect from 'react-native-multiple-select';
+import { Title, Button } from "react-native-paper";
+import { useFonts } from "@expo-google-fonts/quicksand";
+import AppLoading from "expo-app-loading";
+import { CheckBox } from 'react-native-elements'
 
 const actionDispatch = (dispatch: Dispatch) => ({
-  setFilter: (filter: string[]) => dispatch(setFilterGenres(filter)),
+  setFilter: (filter:object) => dispatch(setFilterGenres(filter)),
 });
+
+const genres = [
+  {id:"1", name: "Action", isChecked: false}, 
+  {id: "2", name: "Adventure", isChecked: false},
+  {id: "3", name: "Animation", isChecked: false},
+  {id:"4" , name:"Comedy", isChecked: false},
+  {id:"5" , name: "Crime", isChecked: false},
+  {id:"6", name: "Documentary", isChecked: false}, 
+  {id:"7", name: "Drama", isChecked: false},
+  {id:"8",name: "Family", isChecked: false},
+  {id:"9", name: "Fantasy", isChecked: false},
+  {id:"10", name: "Horror", isChecked: false},
+  {id:"11", name: "Music", isChecked: false},
+  {id:"12", name: "Mystery", isChecked: false},
+  {id:"13", name: "Romance", isChecked: false},
+  {id:"14", name: "Science Fiction", isChecked: false}, 
+  {id:"15", name: "Thriller", isChecked: false},
+  {id:"16", name: "TV Movie", isChecked: false},
+  {id:"17", name: "War", isChecked: false},
+  {id:"18", name: "Western", isChecked: false}
+]
 
 /**
  * This is the component for filter: Genre.
@@ -34,70 +41,116 @@ const actionDispatch = (dispatch: Dispatch) => ({
  * @param genres from state.. 
  * @returns FilterByGenre component to SideBar
  */
-export const FilterByGenre: FunctionComponent<FilterByGenreProps> = ({
-  genres,
-}: FilterByGenreProps) => {
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+const FilterGenreComp: FunctionComponent = () => {
+  const [selectedGenres, setSelectedGenres] = useState(genres);
   const { setFilter } = actionDispatch(useAppDispatch());
 
-  const changeBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const temp = [...selectedGenres];
-      temp.push(event.target.name);
-      setSelectedGenres(temp);
-    }
-    if (!event.target.checked) {
-      const index = selectedGenres.indexOf(event.target.name, 0);
-      if (index > -1) {
-        const temp = [...selectedGenres];
-        temp.splice(index, 1);
-        setSelectedGenres(temp);
-      }
-    }
-  };
+  let [fontsLoaded] = useFonts({
+    'Quicksand-Medium': require('../../assets/fonts/Quicksand-Medium.ttf'),
+    'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf'),
+})
 
+  const onSelectionsChange = (id:string) => {
+    let temp = selectedGenres.map((genre) => {
+      if (id === genre.id) {
+        return { ...genre, isChecked: !genre.isChecked };
+      }
+      return genre;
+    });
+    setSelectedGenres(temp);
+  }
+
+  //TODO
   function updateFilters() {
+
     setFilter(selectedGenres)
   }
 
-  return (
-    <Box sx={{ display: "flex" }}>
-      <FormGroup>
-        {genres.map((genre: string) => (
-          <FormControlLabel
-            control={
-              <Checkbox
-                name={genre}
-                onChange={(e) => {
-                  changeBox(e);
-                }}
-                sx={{
-                  color: "#fff",
-                  "&.Mui-checked": {
-                    color: "#fff",
-                  },
-                  "&:hover": {
-                    color: "#cccccc",
-                  },
-                }}
-              />
-            }
-            label={genre}
-            key={genre}
-          />
-        ))}
-        {
-          <FilterButton
-            variant="contained"
-            endIcon={<MovieCreationOutlinedIcon />}
-            onClick={() => {
-              updateFilters();
-            }}
-          >
-            Filter
-          </FilterButton>
-        }
-      </FormGroup>
-    </Box>
-  );
+  function checkChecked(id:string) {
+    let temp; 
+    selectedGenres.map((genre) => {
+      if (id === genre.id) {
+        temp = genre.isChecked;
+      }
+    })
+    return temp;
+  }
+
+  if (!fontsLoaded){
+    return <AppLoading />
+  }
+  else {
+    return (
+      <View>
+        <Title
+          style={{
+            fontFamily:'Quicksand-Medium',
+            color:'white',
+            textAlign:'center',
+          }}
+        >Filter by genres</Title>
+        <FlatList
+          data={genres}
+          renderItem={({ item }) => (
+            <CheckBox 
+              textStyle={{fontFamily:'Quicksand-Regular', fontSize:18,}} 
+              onPress={() => onSelectionsChange(item.id)}
+              title={item.name}  
+              checked={checkChecked(item.id)}
+              checkedIcon="minus"
+              uncheckedIcon="plus"
+            />
+          )}
+        />
+        <Button
+          onPress={updateFilters}
+          mode="contained"
+          color="white"
+          labelStyle={{
+            fontFamily: 'Quicksand-Regular',
+          }}
+          style={{
+            margin:5,
+          }}
+        >
+          Filter
+        </Button>
+      </View>
+      
+    );
+  }
 };
+
+export default FilterGenreComp;
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    // paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+
+  card: {
+    padding: 10,
+    margin: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 5,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    elevation: 5,
+  },
+  text: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+});
+
