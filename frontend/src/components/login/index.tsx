@@ -1,21 +1,14 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { Dispatch } from "redux";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './index.css';
 import { useAppDispatch } from '../../services/hooks';
-import { letterSpacing } from '@mui/system';
 import { loginAsUser } from './loginslice';
 import { useState } from 'react';
 
-const theme = createTheme();
+import { Button } from 'react-native';
+import { Avatar } from 'react-native-paper';
+import { Container } from 'react-bootstrap';
+
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setUser: (query: string) => dispatch(loginAsUser(query)),
@@ -54,7 +47,6 @@ const SignIn: React.FC<SignInProps> = ({isLoginModalVisible, onCloseClick}) => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
       <Container className="sign-in-container" component="div" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -98,7 +90,7 @@ const SignIn: React.FC<SignInProps> = ({isLoginModalVisible, onCloseClick}) => {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+
   );
 }
 
