@@ -60,7 +60,7 @@ const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisi
                                     size={30} 
                                     color="white" 
                                     onPress={()=>{setIsModalVisible(!isModalVisible)}}
-                                    style={styles.icon}
+                                    /* style={styles.icon}*/
                                 />
                             </View>
                             <View style={styles.headerContainer}>

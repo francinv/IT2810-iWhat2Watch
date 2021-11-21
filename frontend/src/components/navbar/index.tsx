@@ -6,11 +6,11 @@ import { setSearchQuery } from "../../pages/mainPageSlice";
 import { logOut } from "../login/loginslice"
 import { selectUserIsLoggedIn } from "../../services/selectors";
 import { useState } from "react";
-import SignIn from "../login";
 import { Appbar } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { useFonts, Quicksand_600SemiBold} from '@expo-google-fonts/quicksand';
 import AppLoading from "expo-app-loading";
+import LoginModal from "../login/login";
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setSearch: (query: string) => dispatch(setSearchQuery(query)),
@@ -39,10 +39,6 @@ const NavBar: React.FC<NavBarProps> = ({isLoginModalVisible, onCloseClick, close
     'Quicksand-SemiBold': require('../../assets/fonts/Quicksand-SemiBold.ttf'),
   })
 
-  const handleUser = () => {
-    console.log("TODO, must fix login modal");
-  }
-
   const getIcon = () => {
     if (isSideBarVisible) {
       return "menu-open"
@@ -52,7 +48,7 @@ const NavBar: React.FC<NavBarProps> = ({isLoginModalVisible, onCloseClick, close
   }
 
   if (!fontsLoaded) {
-    return <AppLoading />
+    return (<AppLoading />)
   }
   else {
     return (
@@ -62,7 +58,7 @@ const NavBar: React.FC<NavBarProps> = ({isLoginModalVisible, onCloseClick, close
           onPress={closeSideBar}
         />
         <Appbar.Content title="What To Watch?" titleStyle={{fontFamily:'Quicksand-SemiBold', fontSize:30}}/>
-        <Appbar.Action icon="account" />
+        <Appbar.Action icon="account" onPress={onCloseClick} />
       </Appbar.Header>
     );
   }
