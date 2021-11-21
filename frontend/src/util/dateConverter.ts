@@ -4,7 +4,6 @@ export function convertDateToUnixDate(date: Date) {
 
 export function convertUnixDateToDate(unixNumber: number) {
   const date = new Date(unixNumber * 1000);
-  //console.log(date.getFullYear());
   return date;
 }
 

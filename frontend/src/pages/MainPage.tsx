@@ -115,7 +115,8 @@ export const MainPage: FunctionComponent = () => {
               <SortDropDown />
             </View>
             <View>
-              <MovieTable />
+              {/* <BottomScrollListener onBottom={fetchMovies} debounce={0}/> */}
+              <MovieTable fetchMore={fetchMovies}/>
             </View>
           </View>
         </MenuDrawer>
