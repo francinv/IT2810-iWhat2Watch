@@ -18,11 +18,15 @@ import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
  */
 
 interface IMovieObject {
-    item: searchMovies_getMoviesBySearch;
+  item: searchMovies_getMoviesBySearch;
+}
+
+interface MovieTableProps {
+  fetchMore: () => void;
 }
 
 
-const MovieTable: React.FC = () => {
+const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
   const movies = useSelector(selectMovies);
   const isLoggedIn = useSelector(selectUserIsLoggedIn);
   const userName = useSelector(selectUserName)
@@ -84,6 +88,7 @@ const MovieTable: React.FC = () => {
             contentContainerStyle={{
               paddingBottom:20,
             }}
+            onEndReached={fetchMore}
           />
           <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/>
         </SafeAreaView>

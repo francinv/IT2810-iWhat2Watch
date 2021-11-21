@@ -116,7 +116,7 @@ export const MainPage: FunctionComponent = () => {
             </View>
             <View>
               {/* <BottomScrollListener onBottom={fetchMovies} debounce={0}/> */}
-              <MovieTable/>
+              <MovieTable fetchMore={fetchMovies}/>
             </View>
           </View>
         </MenuDrawer>
