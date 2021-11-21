@@ -19,7 +19,7 @@ import { BottomScrollListener } from "react-bottom-scroll-listener";
 import SortDropDown from "../components/sortdropdown";
 import MovieTable from "../components/moviesview";
 import UserDisplay from "../components/userDisplay";
-import { ScrollView, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 import styles from "./styles";
 import MenuDrawer from "react-native-side-drawer";
 
@@ -42,6 +42,7 @@ export const MainPage: FunctionComponent = () => {
   const filterDateStart = useSelector(selectFilterDateStart);
   const filterDateEnd = useSelector(selectFilterDateEnd);
   const sortBy = useSelector(selectSortByCriteria);
+  const { height, width } = useWindowDimensions();
 
   const { setMovies } = actionDispatch(useAppDispatch());
 
@@ -70,6 +71,9 @@ export const MainPage: FunctionComponent = () => {
     fetchMovies();
   }, [filterSearchQuery, filterGenre, filterDateStart, filterDateEnd, sortBy]);
 
+  useEffect(() => {
+
+  }, [width, height])
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const toggleLogInModal = () => {
     setIsLoginModalVisible((wasModalVisible) => !wasModalVisible);
@@ -95,7 +99,7 @@ export const MainPage: FunctionComponent = () => {
   }
   
   return (
-    <View style={{width:'100%', height:'100%'}}>     
+    <View style={{width:width}}>     
       <View>
         <NavBar 
           onCloseClick={toggleLogInModal} 
@@ -104,7 +108,7 @@ export const MainPage: FunctionComponent = () => {
           isSideBarVisible={isSideBarVisible}
         />
       </View>
-      <View style={[styles.container]}>
+      <View style={{width:width}}>
         <MenuDrawer
           open={isSideBarVisible} 
           drawerContent={MenuContent()}
@@ -112,6 +116,7 @@ export const MainPage: FunctionComponent = () => {
           animationTime={250}
           overlay={true}
           opacity={0.4}
+          
         >
           <View>
             <View style={[styles.displayContainer]}>
@@ -128,4 +133,9 @@ export const MainPage: FunctionComponent = () => {
     </View>
   );
 };
+
+const inlineStyles = StyleSheet.create({
+  containerStyle: {
+  }
+})
 

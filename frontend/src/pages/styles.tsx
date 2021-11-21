@@ -5,8 +5,10 @@ export default StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
+        // paddingRight:25,
     },
     container: {
-        zIndex:0,
+        width:'100%',
+        display:'flex',
     },
 })
