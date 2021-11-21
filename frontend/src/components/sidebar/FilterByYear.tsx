@@ -19,11 +19,9 @@ const actionDispatch = (dispatch: Dispatch) => ({
  * @returns FilterByYear component.
  */
 const FilterByYear: FunctionComponent = () => {
-  const [startDate, setStateStartDate] = useState<number>(1635203598);
-  const [endDate, setStateEndDate] = useState<number>(1635203598);
 
-  const [starttemp, setStartTemp] = useState<Date | null>(new Date());
-  const [endtemp, setEndTemp] = useState<Date | null>(new Date());
+  const [startDate, setStartYear] = useState<number>(undefined);
+  const [endDate, setEndYear] = useState<number>(undefined);
 
   let [fontsLoaded] = useFonts({
     'Quicksand-Medium': require('../../assets/fonts/Quicksand-Medium.ttf'),
@@ -32,21 +30,9 @@ const FilterByYear: FunctionComponent = () => {
 
   const { setDates } = actionDispatch(useAppDispatch());
 
-  function setStartYear(year: any | null) {
-    if (year !== null) {
-      setStateStartDate(convertDateToUnixDate(new Date(year)));
-    }
-  }
-  function setEndYear(year: any | null) {
-    if (year !== null) {
-      setStateEndDate(convertDateToUnixDate(new Date(year)));
-    }
-  }
-
   function setFilters() {
     if (endDate > startDate) {
       setDates([startDate, endDate]);
-      console.log("HJ", startDate, endDate);
     }
   }
 
@@ -66,12 +52,20 @@ const FilterByYear: FunctionComponent = () => {
         <TextInput
           label="From"
           keyboardType="numeric"
+          placeholder="Type year here"
+          maxLength={4}
+          onChangeText={(newValue: string) => {
+            setStartYear(convertDateToUnixDate(new Date(newValue)))}}
         />
         <TextInput
           label="To"
           keyboardType="numeric"
+          placeholder="Type year here"
+          maxLength={4}
+          onChangeText={(newValue: string) => {
+            setEndYear(convertDateToUnixDate(new Date(newValue)))}}
         />
-         <Button
+        <Button
           onPress={setFilters}
           mode="contained"
           color="white"

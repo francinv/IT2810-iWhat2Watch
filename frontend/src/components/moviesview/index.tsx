@@ -17,13 +17,17 @@ import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
  * them based on movies fetched form the database.
  */
 
+interface IMovieObject {
+    item: searchMovies_getMoviesBySearch;
+}
+
 
 const MovieTable: React.FC = () => {
   const movies = useSelector(selectMovies);
   const isLoggedIn = useSelector(selectUserIsLoggedIn);
   const userName = useSelector(selectUserName)
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalMovie, setModalMovie] = useState('');
+  const [modalMovie, setModalMovie] = useState(null);
 
   const [fontsLoaded] = useFonts({
     'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf')
@@ -36,8 +40,9 @@ const MovieTable: React.FC = () => {
     return movie.favoritedByUser.includes(userName)
   }
 
-  const Movie = ({item}) => (
-    <TouchableWithoutFeedback
+  const Movie = ({item}: IMovieObject) => (
+    <Card 
+      style={styles.cardContainer} 
       onPress={
         () => {
           setModalVisible(true);
@@ -63,7 +68,7 @@ const MovieTable: React.FC = () => {
     </TouchableWithoutFeedback>
   )
 
-  const renderItem = ({item}) => {
+  const renderItem = ({item}: IMovieObject) => {
     return(
       <Movie
         item={item}
@@ -79,7 +84,7 @@ const MovieTable: React.FC = () => {
           <FlatList
             data={movies}
             renderItem={renderItem}
-            keyExtractor={(movie) => movie.id}
+            keyExtractor={(movie: searchMovies_getMoviesBySearch) => movie.id}
             numColumns={2}
             contentContainerStyle={{
               paddingBottom:20,
