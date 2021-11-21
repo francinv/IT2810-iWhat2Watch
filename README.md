@@ -64,17 +64,8 @@ iWhatToWatch bruker React-Native for frontend.
 Vi har valgt å bruke redux toolkit for global state management. Vi har valgt å lagre en stor mengde informasjon i store, slik at komponentene til enhver tid kan være oppdatert på data som er lastet inn. Dette gjør vi også slik at komponentene rendres på riktige tidspunkt med oppdaterte data. Vi bruker selectors for å hente data, og dispatch for å sette data i store. Vi har også brukt lokal react-state der dette er gunstig, når det ikke er behov for andre komponenter å ha tilgang til denne staten. Dette passer bra for en lavskala applikasjon. Redux toolkit har alt redux tilbyr. Redux toolkit er enklere, blant annet fordi man kan definere slicer som fungerer som både reducer og action i ett. Vi har to slices, en som håndterer filmer og filtrering, og en som håndterer brukerdata.
 
 ### Komponentvalg
+Vi har hovedsaklig brukt komponenter fra React-Native-Papter. Grunnen til at vi valgte dette er fordi den er basert på material design, som er noe vi har i vår opprinnelige nettside(prosjekt 3).
 
-
-
-
-#### iOS:
-![](https://i.imgur.com/aGTuU0r.jpg)
-![](https://i.imgur.com/eXfsZ8G.jpg)
-
-### Android:
-![](https://i.imgur.com/GkquT5Y.jpg)
-![](https://i.imgur.com/8XVan49.jpg)
 
 ## Dokumentasjon og utvikling
 Gjennom prosjektet har gruppen valgt å bruke GitLab flittig. Det har vært fokus på parprogrammering underveis i utviklingen for å forsikre god kodekvalitet til enhver tid. Vi har også hatt fokus på å utvikle komponenter og skrive lesbar kode. Dette har vi også sikret ved å bruke code-review jevnt gjennom utviklingsprosessen. 
@@ -95,8 +86,18 @@ For å kjøre frontend må man:
 3. `yarn start`
 4. Følg instruks i terminalen og velg ønsket måte å kjøre appen på.
 
+**Vi opplever i blant problemer med scrolling på Android. Dette problemet er derimot ikke på iOS. Med Android har vi kun hatt mulighet til å kjøre med en emulator, og ikke gjennom Expo Go ettersom vi ikke har tilgang på en Android telefon. (https://piazza.com/class/ksk8rtnewz56sh?cid=257) **
+
 ### Backend
 Trenger ikke å starte backend lokalt. Backenden ligger på NTNU server, og dermed holder det å være logget inn på NTNU-vpn.
+
+#### iOS:
+![](https://i.imgur.com/aGTuU0r.jpg)
+
+
+### Android:
+![](https://i.imgur.com/GkquT5Y.jpg)
+
 
 
 
