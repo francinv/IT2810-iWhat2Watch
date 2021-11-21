@@ -21,6 +21,7 @@ import MovieTable from "../components/moviesview";
 import UserDisplay from "../components/userDisplay";
 import { Dimensions, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 import styles from "./styles";
+import LoginModal from "../components/login/login";
 import MenuDrawer from "react-native-side-drawer";
 
 
@@ -75,13 +76,6 @@ export const MainPage: FunctionComponent = () => {
     setIsLoginModalVisible((wasModalVisible) => !wasModalVisible);
   };
 
-
-  const closeLoginModal = () => {
-    if (isLoginModalVisible){
-      setIsLoginModalVisible(false);
-    }
-  }
-
   const [isSideBarVisible, setSideBarVisible] = useState(false);
 
   const closeSideBar = () => {
@@ -97,6 +91,7 @@ export const MainPage: FunctionComponent = () => {
   return (
     <View style={{width:width}}>     
       <View>
+        <LoginModal isLoginModalVisible={isLoginModalVisible} setIsModalVisible={toggleLogInModal}/>
         <NavBar 
           onCloseClick={toggleLogInModal} 
           isLoginModalVisible={isLoginModalVisible} 
