@@ -21,6 +21,7 @@ import MovieTable from "../components/moviesview";
 import UserDisplay from "../components/userDisplay";
 import { ScrollView, View } from "react-native";
 import styles from "./styles";
+import MenuDrawer from "react-native-side-drawer";
 
 
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -81,19 +82,49 @@ export const MainPage: FunctionComponent = () => {
     }
   }
 
+  const [isSideBarVisible, setSideBarVisible] = useState(false);
+
+  const closeSideBar = () => {
+    setSideBarVisible((wasSideBarVisible) => !wasSideBarVisible);
+  }
+
+  const MenuContent = () => {
+    return(
+      <SideBar isSideBarVisible={isSideBarVisible} closeSideBar={closeSideBar} />
+    )
+  }
   
   return (
-    <View>
+    <View>    
       <View>
-        <NavBar onCloseClick={toggleLogInModal} isLoginModalVisible={isLoginModalVisible}/>
+        <NavBar 
+          onCloseClick={toggleLogInModal} 
+          isLoginModalVisible={isLoginModalVisible} 
+          closeSideBar={closeSideBar} 
+          isSideBarVisible={isSideBarVisible}
+        />
       </View>
-      <View style={[styles.displayContainer]}>
-        <UserDisplay />
-        <SortDropDown />
+      <View style={[styles.container]}>
+        <MenuDrawer
+          open={isSideBarVisible} 
+          drawerContent={MenuContent()}
+          drawerPercentage={90}
+          animationTime={250}
+          overlay={true}
+          opacity={0.4}
+        >
+          <View>
+            <View style={[styles.displayContainer]}>
+              <UserDisplay />
+              <SortDropDown />
+            </View>
+            <View>
+              <MovieTable/>
+            </View>
+          </View>
+        </MenuDrawer>
       </View>
-      <View>
-        <MovieTable/>
-      </View>
+      
     </View>
   );
 };
