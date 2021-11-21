@@ -8,9 +8,10 @@ import {
 import { Modal, View, Text, StyleSheet, Image, ScrollView} from "react-native";
 import { IconButton } from "react-native-paper";
 import { useFonts } from "expo-font";
+import searchMovies_getMoviesBySearch from "../../services";
 
 interface ModalProps {
-    movie: any;
+    movie: typeof searchMovies_getMoviesBySearch;
     isModalVisible: boolean;
     setIsModalVisible: (isModalVisible:boolean) => void;
 }
@@ -31,15 +32,13 @@ const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisi
         'Quicksand-SemiBold': require('../../assets/fonts/Quicksand-Medium.ttf'),
     })
 
-    function getReducedArray(array: Array<any>): Array<any> {
+    function getReducedArray(array: Array<string>): Array<string> {
         const temp = [...array]
         const index = temp.indexOf(userName, 0);
         if (index > -1) {
             temp.splice(index, 1);
         }
-        console.log(temp)
         return temp;
-        
     }
 
     if(isModalVisible){
