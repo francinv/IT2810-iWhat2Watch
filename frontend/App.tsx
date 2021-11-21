@@ -5,13 +5,16 @@ import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "./src/graphql";
 import { store } from './src/services/store';
 import { Provider } from 'react-redux';
+import { Provider as PaperProvider } from 'react-native-paper';
 import {MainPage} from './src/pages/MainPage';
 
 export default function App() {
   return (
     <Provider store={store}>
       <ApolloProvider client={apolloClient}> 
-        <MainPage />
+        <PaperProvider>
+          <MainPage />
+        </PaperProvider>
       </ApolloProvider>
     </Provider>
     
