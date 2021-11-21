@@ -58,12 +58,12 @@ const FilterGenreComp: FunctionComponent = () => {
       return genre;
     });
     setSelectedGenres(temp);
+    updateFilters(temp);
   }
 
-  //TODO
-  function updateFilters() {
-
-    setFilter(selectedGenres)
+  function updateFilters(genreArray: Array<{ id: string; name: string; isChecked: boolean; }>) {
+    var filteredArray = genreArray.filter(genre => genre.isChecked === true).map(({name}) => name)
+    setFilter(filteredArray)
   }
 
   function checkChecked(id:string) {
@@ -102,21 +102,7 @@ const FilterGenreComp: FunctionComponent = () => {
             />
           )}
         />
-        <Button
-          onPress={updateFilters}
-          mode="contained"
-          color="white"
-          labelStyle={{
-            fontFamily: 'Quicksand-Regular',
-          }}
-          style={{
-            margin:5,
-          }}
-        >
-          Filter
-        </Button>
       </View>
-      
     );
   }
 };
