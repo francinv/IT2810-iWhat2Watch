@@ -92,7 +92,7 @@ For å kjøre frontend må man:
 Trenger ikke å starte backend lokalt. Backenden ligger på NTNU server, og dermed holder det å være logget inn på NTNU-vpn.
 
 ### iOS:
-![](https://imgur.com/a/RlIYTL8)
+![](https://i.imgur.com/RlIYTL8.jpg)
 
 
 ### Android:
