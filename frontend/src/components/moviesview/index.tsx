@@ -50,10 +50,6 @@ const MovieTable: React.FC = () => {
         }
       }
     >
-    <Card 
-      style={styles.cardContainer} 
-      
-      >
       <View>
         <Card.Cover source={{uri: item?.poster}} style={styles.cover}/>
       </View>
@@ -65,7 +61,6 @@ const MovieTable: React.FC = () => {
         <Title style={styles.title}>{item?.title}</Title>
       </Card.Content>
     </Card>
-    </TouchableWithoutFeedback>
   )
 
   const renderItem = ({item}: IMovieObject) => {
