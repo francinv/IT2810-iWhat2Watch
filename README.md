@@ -88,11 +88,12 @@ Gruppens prosess:
 Under finner du instrukser for hvordan du kjører appen om du ønsker å kjøre denne lokalt på din egen PC.
 
 ### Frontend
+Gjennom utvikling har vi brukt appen Expo Go(iOS: https://apps.apple.com/us/app/expo-go/id982107779 eller Android: https://play.google.com/store/apps/details?id=host.exp.exponent&hl=no&gl=US). Dette gjør det enklet å kjøre appen på egen telefon. Dersom man ønsker å bruke denne måten, kreves det at man er logget inn på NTNU-vpn med telefonen(https://innsida.ntnu.no/wiki/-/wiki/Norsk/Installere+VPN)
 For å kjøre frontend må man:
 1. `cd frontend/`
 2. `yarn install`
 3. `yarn start`
-4. Følg instruks i terminalen
+4. Følg instruks i terminalen og velg ønsket måte å kjøre appen på.
 
 ### Backend
 Trenger ikke å starte backend lokalt. Backenden ligger på NTNU server, og dermed holder det å være logget inn på NTNU-vpn.
