@@ -3,7 +3,6 @@
 # Om prosjektet
 iWhatTowatch  appversjonen av er en filmdatabase What2Watch(prosjekt 3). Brukeren har mulighet til å se en stor mengde med filmer, i tillegg favorisere dem. Brukeren har også mulighet til å se detaljert informasjon av ønsket film. Videre har brukeren både sorteringsmuligheter og filtreringsmuligheter. Dette vil drøftes og forklares ytterligere i [Innhold og funksjonalitet](#ihf).
 
-![](https://i.imgur.com/Dc5bgYo.jpg)
 ## <a id="ihf"></a>Innhold og funksjonalitet
 
 - **Presentasjon av filmer:** Filmene er det som har hovedfokus på siden. Basert på liste (hentet fra database) blir filmene vist i et
@@ -92,11 +91,11 @@ For å kjøre frontend må man:
 Trenger ikke å starte backend lokalt. Backenden ligger på NTNU server, og dermed holder det å være logget inn på NTNU-vpn.
 
 ### iOS:
-![](https://i.imgur.com/RlIYTL8.jpg)
-
+![](https://i.imgur.com/jL0iwX8_d.jpg?maxwidth=675&fidelity=grand)
 
 ### Android:
-![](https://i.imgur.com/GkquT5Y.jpg)
+![](https://i.imgur.com/ODLdTZh.png?maxwidth=290&fidelity=grand))
+
 
 
 
