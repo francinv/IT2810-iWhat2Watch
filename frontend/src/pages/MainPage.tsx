@@ -21,6 +21,7 @@ import MovieTable from "../components/moviesview";
 import UserDisplay from "../components/userDisplay";
 import { ScrollView, View } from "react-native";
 import styles from "./styles";
+import LoginModal from "../components/login/login";
 
 
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -74,18 +75,12 @@ export const MainPage: FunctionComponent = () => {
     setIsLoginModalVisible((wasModalVisible) => !wasModalVisible);
   };
 
-
-  const closeLoginModal = () => {
-    if (isLoginModalVisible){
-      setIsLoginModalVisible(false);
-    }
-  }
-
   
   return (
     <View>
       <View>
         <NavBar onCloseClick={toggleLogInModal} isLoginModalVisible={isLoginModalVisible}/>
+        <LoginModal isLoginModalVisible={isLoginModalVisible} setIsModalVisible={toggleLogInModal}/>
       </View>
       <View style={[styles.displayContainer]}>
         <UserDisplay />

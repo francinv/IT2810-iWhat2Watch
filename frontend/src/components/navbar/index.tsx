@@ -39,45 +39,16 @@ const NavBar: React.FC<NavBarProps> = ({isLoginModalVisible, onCloseClick}) => {
     'Quicksand-SemiBold': require('../../assets/fonts/Quicksand-SemiBold.ttf'),
   })
 
-  // const searchEvent = () => {
-  //   setSearch(localSearch);
-  // }
-
-  const handleMenu = () => {
-    console.log("TODO, must fix filter/sidebar");
-  }
-
-
-  const handleUser = () => {
-    console.log("TODO, must fix login modal");
-  }
-
-
-  // const keyPress = (event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-  //   if (event.keyCode === 13) {
-  //     setSearch(localSearch);
-  //   }
-  // };
-
-  // function inputChange(
-  //   event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  // ) {
-  //   setLocalSearch(event.target.value);
-  // }
-
   if (!fontsLoaded) {
     return (<AppLoading />)
   }
   else {
     return (
-      <>
       <Appbar.Header style={{backgroundColor:'black'}}>
         <Appbar.Action icon="menu" />
         <Appbar.Content title="What To Watch?" titleStyle={{fontFamily:'Quicksand-SemiBold', fontSize:30}}/>
-        {isLoggedIn ? <Appbar.Action icon="account" onPress= {setLogOut}/> : <Appbar.Action icon="menu" onPress= {onCloseClick} />}
+        <Appbar.Action icon="account" onPress={onCloseClick} />
       </Appbar.Header>
-      <LoginModal/>
-      </>
     );
   }
 }
