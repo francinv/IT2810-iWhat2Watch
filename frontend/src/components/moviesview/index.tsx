@@ -8,6 +8,7 @@ import { StyleSheet, SafeAreaView, FlatList, View } from "react-native";
 import { useFonts } from "@expo-google-fonts/inter";
 import AppLoading from 'expo-app-loading';
 import MovieModal from "../moviedetail/MovieModal";
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 
 
 /**
@@ -48,6 +49,10 @@ const MovieTable: React.FC = () => {
           setModalMovie(item);
         }
       }
+    >
+    <Card 
+      style={styles.cardContainer} 
+      
       >
       <View>
         <Card.Cover source={{uri: item?.poster}} style={styles.cover}/>
@@ -60,6 +65,7 @@ const MovieTable: React.FC = () => {
         <Title style={styles.title}>{item?.title}</Title>
       </Card.Content>
     </Card>
+    </TouchableWithoutFeedback>
   )
 
   const renderItem = ({item}: IMovieObject) => {
@@ -80,6 +86,9 @@ const MovieTable: React.FC = () => {
             renderItem={renderItem}
             keyExtractor={(movie: searchMovies_getMoviesBySearch) => movie.id}
             numColumns={2}
+            contentContainerStyle={{
+              paddingBottom:20,
+            }}
           />
           <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/>
         </SafeAreaView>

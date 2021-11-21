@@ -19,11 +19,13 @@ const SideBar: FunctionComponent<SideBarProps> = ({isSideBarVisible, closeSideBa
 
 
   return (
-      <ScrollView style={styles.animatedBox} contentContainerStyle={styles.scrollContainer}>
+    <View style={styles.animatedBox}>
+      <ScrollView >
         <SearchComp/>
         <FilterGenreComp />
         <FilterByYear />
       </ScrollView>
+    </View>
   );
 };
 
@@ -32,6 +34,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     padding: 20,
     height: '100%',
+    display:'flex',
   },
   scrollContainer: {
     paddingBottom:500,
