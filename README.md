@@ -86,7 +86,7 @@ For å kjøre frontend må man:
 3. `yarn start`
 4. Følg instruks i terminalen og velg ønsket måte å kjøre appen på.
 
-**Vi opplever i blant problemer med scrolling på Android. Dette problemet er derimot ikke på iOS. Med Android har vi kun hatt mulighet til å kjøre med en emulator, og ikke gjennom Expo Go ettersom vi ikke har tilgang på en Android telefon. (https://piazza.com/class/ksk8rtnewz56sh?cid=257) **
+**Vi opplever i blant problemer med scrolling på Android. Dette problemet er derimot ikke på iOS. Med Android har vi kun hatt mulighet til å kjøre med en emulator, og ikke gjennom Expo Go ettersom vi ikke har tilgang på en Android telefon. (https://piazza.com/class/ksk8rtnewz56sh?cid=257)**
 
 ### Backend
 Trenger ikke å starte backend lokalt. Backenden ligger på NTNU server, og dermed holder det å være logget inn på NTNU-vpn.
