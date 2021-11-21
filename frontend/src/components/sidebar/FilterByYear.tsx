@@ -56,6 +56,7 @@ const FilterByYear: FunctionComponent = () => {
           maxLength={4}
           onChangeText={(newValue: string) => {
             setStartYear(convertDateToUnixDate(new Date(newValue)))}}
+          style={{margin:10}}
         />
         <TextInput
           label="To"
@@ -64,6 +65,7 @@ const FilterByYear: FunctionComponent = () => {
           maxLength={4}
           onChangeText={(newValue: string) => {
             setEndYear(convertDateToUnixDate(new Date(newValue)))}}
+          style={{margin:10}}
         />
         <Button
           onPress={setFilters}

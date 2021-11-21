@@ -20,7 +20,7 @@ const SideBar: FunctionComponent<SideBarProps> = ({isSideBarVisible, closeSideBa
 
   return (
     <View style={styles.animatedBox}>
-      <ScrollView >
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
         <SearchComp/>
         <FilterGenreComp />
         <FilterByYear />
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     display:'flex',
   },
   scrollContainer: {
-    paddingBottom:500,
+    paddingBottom:50,
   }
 })
 export default SideBar;

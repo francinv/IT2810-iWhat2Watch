@@ -21,7 +21,6 @@ interface IMovieObject {
     item: searchMovies_getMoviesBySearch;
 }
 
-
 const MovieTable: React.FC = () => {
   const movies = useSelector(selectMovies);
   const isLoggedIn = useSelector(selectUserIsLoggedIn);
@@ -82,8 +81,10 @@ const MovieTable: React.FC = () => {
             keyExtractor={(movie: searchMovies_getMoviesBySearch) => movie.id}
             numColumns={2}
             contentContainerStyle={{
-              paddingBottom:20,
+              paddingBottom:350,
             }}
+            onEndReachedThreshold={0.5}
+            onEndReached={() => {console.log("test")}}
           />
           <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/>
         </SafeAreaView>
