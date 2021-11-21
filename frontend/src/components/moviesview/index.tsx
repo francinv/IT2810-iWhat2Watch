@@ -16,13 +16,17 @@ import MovieModal from "../moviedetail/MovieModal";
  * them based on movies fetched form the database.
  */
 
+interface IMovieObject {
+    item: searchMovies_getMoviesBySearch;
+}
+
 
 const MovieTable: React.FC = () => {
   const movies = useSelector(selectMovies);
   const isLoggedIn = useSelector(selectUserIsLoggedIn);
   const userName = useSelector(selectUserName)
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalMovie, setModalMovie] = useState('');
+  const [modalMovie, setModalMovie] = useState(null);
 
   const [fontsLoaded] = useFonts({
     'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf')
@@ -35,7 +39,7 @@ const MovieTable: React.FC = () => {
     return movie.favoritedByUser.includes(userName)
   }
 
-  const Movie = ({item}) => (
+  const Movie = ({item}: IMovieObject) => (
     <Card 
       style={styles.cardContainer} 
       onPress={
@@ -58,7 +62,7 @@ const MovieTable: React.FC = () => {
     </Card>
   )
 
-  const renderItem = ({item}) => {
+  const renderItem = ({item}: IMovieObject) => {
     return(
       <Movie
         item={item}
@@ -74,7 +78,7 @@ const MovieTable: React.FC = () => {
           <FlatList
             data={movies}
             renderItem={renderItem}
-            keyExtractor={(movie) => movie.id}
+            keyExtractor={(movie: searchMovies_getMoviesBySearch) => movie.id}
             numColumns={2}
           />
           <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/>

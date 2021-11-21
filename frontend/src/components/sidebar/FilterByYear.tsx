@@ -20,8 +20,8 @@ const actionDispatch = (dispatch: Dispatch) => ({
  */
 const FilterByYear: FunctionComponent = () => {
 
-  const [startDate, setStartYear] = useState<number>(1635203598);
-  const [endDate, setEndYear] = useState<number>(1635203598);
+  const [startDate, setStartYear] = useState<number>(undefined);
+  const [endDate, setEndYear] = useState<number>(undefined);
 
   let [fontsLoaded] = useFonts({
     'Quicksand-Medium': require('../../assets/fonts/Quicksand-Medium.ttf'),
@@ -54,7 +54,7 @@ const FilterByYear: FunctionComponent = () => {
           keyboardType="numeric"
           placeholder="Type year here"
           maxLength={4}
-          onChangeText={(newValue) => {
+          onChangeText={(newValue: string) => {
             setStartYear(convertDateToUnixDate(new Date(newValue)))}}
         />
         <TextInput
@@ -62,7 +62,7 @@ const FilterByYear: FunctionComponent = () => {
           keyboardType="numeric"
           placeholder="Type year here"
           maxLength={4}
-          onChangeText={(newValue) => {
+          onChangeText={(newValue: string) => {
             setEndYear(convertDateToUnixDate(new Date(newValue)))}}
         />
         <Button

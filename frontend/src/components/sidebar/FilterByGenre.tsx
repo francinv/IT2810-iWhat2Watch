@@ -3,7 +3,6 @@ import { useAppDispatch } from "../../services/hooks";
 import { Dispatch } from "redux";
 import { setFilterGenres } from "../../pages/mainPageSlice";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import MultiSelect from 'react-native-multiple-select';
 import { Title, Button } from "react-native-paper";
 import { useFonts } from "@expo-google-fonts/quicksand";
 import AppLoading from "expo-app-loading";
