@@ -95,7 +95,7 @@ export const MainPage: FunctionComponent = () => {
   }
   
   return (
-    <View>    
+    <View style={{width:'100%', height:'100%'}}>     
       <View>
         <NavBar 
           onCloseClick={toggleLogInModal} 
@@ -108,7 +108,7 @@ export const MainPage: FunctionComponent = () => {
         <MenuDrawer
           open={isSideBarVisible} 
           drawerContent={MenuContent()}
-          drawerPercentage={90}
+          drawerPercentage={80}
           animationTime={250}
           overlay={true}
           opacity={0.4}
