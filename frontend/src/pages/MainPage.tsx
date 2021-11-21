@@ -61,10 +61,6 @@ export const MainPage: FunctionComponent = () => {
     }
   };
 
-  function fetchMore() {
-    fetchMovies();
-  }
-
   useEffect(() => {
     fetchMovies();
   }, [filterSearchQuery, filterGenre, filterDateStart, filterDateEnd, sortBy]);
@@ -92,6 +88,7 @@ export const MainPage: FunctionComponent = () => {
         <SortDropDown />
       </View>
       <View>
+        <BottomScrollListener onBottom={fetchMovies} debounce={0}/>
         <MovieTable/>
       </View>
     </View>
