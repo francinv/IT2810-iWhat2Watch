@@ -22,6 +22,7 @@ import UserDisplay from "../components/userDisplay";
 import { ScrollView, View } from "react-native";
 import styles from "./styles";
 import LoginModal from "../components/login/login";
+import MenuDrawer from "react-native-side-drawer";
 
 
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -62,10 +63,6 @@ export const MainPage: FunctionComponent = () => {
     }
   };
 
-  function fetchMore() {
-    fetchMovies();
-  }
-
   useEffect(() => {
     fetchMovies();
   }, [filterSearchQuery, filterGenre, filterDateStart, filterDateEnd, sortBy]);
@@ -75,20 +72,51 @@ export const MainPage: FunctionComponent = () => {
     setIsLoginModalVisible((wasModalVisible) => !wasModalVisible);
   };
 
+  const [isSideBarVisible, setSideBarVisible] = useState(false);
+
+  const closeSideBar = () => {
+    setSideBarVisible((wasSideBarVisible) => !wasSideBarVisible);
+  }
+
+  const MenuContent = () => {
+    return(
+      <SideBar isSideBarVisible={isSideBarVisible} closeSideBar={closeSideBar} />
+    )
+  }
   
   return (
-    <View>
+    <View>    
       <View>
-        <NavBar onCloseClick={toggleLogInModal} isLoginModalVisible={isLoginModalVisible}/>
         <LoginModal isLoginModalVisible={isLoginModalVisible} setIsModalVisible={toggleLogInModal}/>
+        <NavBar 
+          onCloseClick={toggleLogInModal} 
+          isLoginModalVisible={isLoginModalVisible} 
+          closeSideBar={closeSideBar} 
+          isSideBarVisible={isSideBarVisible}
+        />
       </View>
-      <View style={[styles.displayContainer]}>
-        <UserDisplay />
-        <SortDropDown />
+      <View style={[styles.container]}>
+        <MenuDrawer
+          open={isSideBarVisible} 
+          drawerContent={MenuContent()}
+          drawerPercentage={90}
+          animationTime={250}
+          overlay={true}
+          opacity={0.4}
+        >
+          <View>
+            <View style={[styles.displayContainer]}>
+              <UserDisplay />
+              <SortDropDown />
+            </View>
+            <View>
+              <BottomScrollListener onBottom={fetchMovies} debounce={0}/>
+              <MovieTable/>
+            </View>
+          </View>
+        </MenuDrawer>
       </View>
-      <View>
-        <MovieTable/>
-      </View>
+      
     </View>
   );
 };
