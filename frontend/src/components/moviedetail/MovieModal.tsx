@@ -8,10 +8,10 @@ import {
 import { Modal, View, Text, StyleSheet, Image, ScrollView} from "react-native";
 import { IconButton } from "react-native-paper";
 import { useFonts } from "expo-font";
-import searchMovies_getMoviesBySearch from "../../services";
+import { searchMovies_getMoviesBySearch } from "../../services/__generated__/searchMovies";
 
 interface ModalProps {
-    movie: typeof searchMovies_getMoviesBySearch;
+    movie: searchMovies_getMoviesBySearch;
     isModalVisible: boolean;
     setIsModalVisible: (isModalVisible:boolean) => void;
 }
