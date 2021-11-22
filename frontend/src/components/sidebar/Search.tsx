@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../services/hooks";
 import { Dispatch } from "redux";
-import { useSelector } from "react-redux";
 import { setSearchQuery } from "../../pages/mainPageSlice";
 import { FunctionComponent } from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { Button, Searchbar, Title } from "react-native-paper";
 import { useFonts } from "@expo-google-fonts/quicksand";
 import AppLoading from "expo-app-loading";
-import FilterByGenre from "./FilterByGenre";
-
 
 const actionDispatch = (dispatch: Dispatch) => ({
     setSearch: (query: string) => dispatch(setSearchQuery(query)),
 });
 
 const SearchComp: FunctionComponent = () => {
-    const [localSearch, setLocalSearch] = useState<string>("");
+    const [localSearch, setLocalSearch] = useState<string | null>(null);
     const { setSearch } = actionDispatch(useAppDispatch());
     let [fontsLoaded] = useFonts({
         'Quicksand-Medium': require('../../assets/fonts/Quicksand-Medium.ttf'),
@@ -24,7 +21,7 @@ const SearchComp: FunctionComponent = () => {
     })
 
     const searchEvent = () => {
-      setSearch(localSearch);
+        if (localSearch !== null) setSearch(localSearch);
     }
 
     const onChangeSearch = (query:string) => setLocalSearch(query);
@@ -46,7 +43,7 @@ const SearchComp: FunctionComponent = () => {
                 <Searchbar
                     placeholder="Search..."
                     onChangeText={onChangeSearch}
-                    value={localSearch}
+                    value={localSearch ? localSearch : ""}
                     iconColor="black"
                     inputStyle={{
                         fontFamily: 'Quicksand-Regular',

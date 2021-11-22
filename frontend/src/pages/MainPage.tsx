@@ -15,11 +15,10 @@ import { Dispatch } from "redux";
 import { setMovies } from "./mainPageSlice";
 import { searchMovies } from "../services/__generated__/searchMovies";
 import { useAppDispatch } from "../services/hooks";
-import { BottomScrollListener } from "react-bottom-scroll-listener";
 import SortDropDown from "../components/sortdropdown";
 import MovieTable from "../components/moviesview";
 import UserDisplay from "../components/userDisplay";
-import { Dimensions, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import styles from "./styles";
 import LoginModal from "../components/login/login";
 import MenuDrawer from "react-native-side-drawer";
@@ -64,12 +63,13 @@ export const MainPage: FunctionComponent = () => {
     }
   };
 
+  /* Fetches new set of movies if one of the filtering or sorting values are changed */
   useEffect(() => {
     fetchMovies();
   }, [filterSearchQuery, filterGenre, filterDateStart, filterDateEnd, sortBy]);
 
+  /* Shows login modal to opposite of previous state */
   useEffect(() => {
-
   }, [width, height])
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const toggleLogInModal = () => {
@@ -115,7 +115,6 @@ export const MainPage: FunctionComponent = () => {
               <SortDropDown />
             </View>
             <View>
-              {/* <BottomScrollListener onBottom={fetchMovies} debounce={0}/> */}
               <MovieTable fetchMore={fetchMovies}/>
             </View>
           </View>
@@ -126,8 +125,4 @@ export const MainPage: FunctionComponent = () => {
   );
 };
 
-const inlineStyles = StyleSheet.create({
-  containerStyle: {
-  }
-})
 

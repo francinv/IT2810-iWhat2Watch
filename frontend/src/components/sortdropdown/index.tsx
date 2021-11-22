@@ -21,7 +21,6 @@ const actionDispatch = (dispatch: Dispatch) => ({
  * 
  */
 export default function SortDropDown() {
-  const [open, setOpen] = useState(false);
   const [sortBy, setSortBy] = useState('');
   const { setCriteria } = actionDispatch(useAppDispatch());
 

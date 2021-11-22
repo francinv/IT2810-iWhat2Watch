@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectMovies, selectUserIsLoggedIn, selectUserName } from "../../services/selectors";
 import { searchMovies_getMoviesBySearch } from "../../services/__generated__/searchMovies"
 import FavButton from "../favButton";
 import { Card, Title } from "react-native-paper";
-import { StyleSheet, SafeAreaView, FlatList, View } from "react-native";
+import { StyleSheet, SafeAreaView, FlatList, View, Text } from "react-native";
 import { useFonts } from "@expo-google-fonts/inter";
 import AppLoading from 'expo-app-loading';
 import MovieModal from "../moviedetail/MovieModal";
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { LogBox } from 'react-native';
 
 
 /**
  * This is a component displaying all the movies. 
- * We are using MUI Card components and rendering 
- * them based on movies fetched form the database.
+ * The movies are fetched form the database.
  */
 
+/* Interface for object with movie */
 interface IMovieObject {
   item: searchMovies_getMoviesBySearch;
 }
@@ -25,23 +25,56 @@ interface MovieTableProps {
   fetchMore: () => void;
 }
 
+/* Interface for object with favorite information */
+type favoritedMovie = {
+  id:string;
+  isFavorited:boolean;
+}
+
 
 const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
   const movies = useSelector(selectMovies);
   const isLoggedIn = useSelector(selectUserIsLoggedIn);
   const userName = useSelector(selectUserName)
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalMovie, setModalMovie] = useState(null);
+  const [modalMovie, setModalMovie] = useState<searchMovies_getMoviesBySearch>();
+  const [favoritedInSession, setFavoritedInSession] = useState<Array<favoritedMovie>>([]);
 
   const [fontsLoaded] = useFonts({
     'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf')
   })
 
+  /* Returns true or false based on component state. If component state does not contain a value for the movie,
+  the favorited value for the logged in user of the movie is returned */
   function isFavorited(movie: searchMovies_getMoviesBySearch): boolean {
     if (movie === null || !userName ) {
       return false;
     }
+    let favoritedArray = favoritedInSession.filter(favoritedInSession => favoritedInSession.id === movie.id)
+    if (favoritedArray.length > 0 ) {
+      return favoritedArray[0].isFavorited;
+    }
     return movie.favoritedByUser.includes(userName)
+  }
+
+  useEffect(() => {
+    //Flatlist needs to be in ScrollView in our case.
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+}, [])
+
+
+  /* Returns a reduced array with the favorited movie only occuring once, if it already exists, update with new value */
+  function handleFavorize(newValue: boolean, id: string) {
+    let alreadyInFavorites = favoritedInSession.filter(favoritedInSession => favoritedInSession.id === id)
+    if (alreadyInFavorites.length > 0) {
+      let newFav = alreadyInFavorites[0]
+      newFav.isFavorited = newValue
+    } else {
+      setFavoritedInSession((state) => [...state, {id:id, isFavorited:newValue}])
+    }
+
+
+    
   }
 
   const Movie = ({item}: IMovieObject) => (
@@ -59,7 +92,7 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
       </View>
       <Card.Content style={styles.contentContainer}>
         { isLoggedIn
-          ? <FavButton isFavorited={isFavorited(item)} userName={userName !== undefined ? userName : ""} id={item.id}/>
+          ? <FavButton isFavorited={isFavorited(item)} userName={userName !== undefined ? userName : ""} id={item.id} onPressed = {(newValue: boolean, id: string) => handleFavorize(newValue, id)}/>
           : null
         }
         <Title style={styles.title}>{item?.title}</Title>
@@ -75,6 +108,7 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
     );
   };
 
+
   if (!fontsLoaded) {
     return <AppLoading />
   } else {
@@ -89,8 +123,9 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
               paddingBottom:350,
             }}
             onEndReached={fetchMore}
-          />
-          <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/>
+          > 
+          </FlatList>
+          {modalMovie ? <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/> : null}
         </SafeAreaView>
     )
   }

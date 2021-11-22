@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
-import {selectUserIsLoggedIn, selectUserName} from '../../services/selectors';
+import {selectUserName} from '../../services/selectors';
 import { StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';

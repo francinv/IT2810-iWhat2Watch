@@ -6,7 +6,8 @@ interface FavButtonProps {
     isFavorited: boolean;
     userName: string;
     id: string;
-}
+    onPressed: (newValue: boolean, id: string) => void;
+  }
 
 /**
  * This is a component for favoriting a movie. We take in three props. 
@@ -15,7 +16,7 @@ interface FavButtonProps {
  * @param isFavorited, userName, id 
  * @returns a button with Heart. 
  */
-const FavButton: React.FC<FavButtonProps> =({isFavorited, userName, id}) => {
+const FavButton: React.FC<FavButtonProps> =({isFavorited, userName, id, onPressed}) => {
 
     const [favorited, setFavorited] = useState(isFavorited);
 
@@ -41,6 +42,9 @@ const FavButton: React.FC<FavButtonProps> =({isFavorited, userName, id}) => {
     }
     }
 
+    /* Sets movie as favorite through API and changes local state through callback 
+    to parent component. The state is changed to keep track of local favorites not stored in redux store. */
+
     function clickFavorite(didUserFavorite: boolean) {
         if (didUserFavorite) {
             setFavorite();
@@ -48,6 +52,7 @@ const FavButton: React.FC<FavButtonProps> =({isFavorited, userName, id}) => {
         else {
             removeFavorite();
         }
+        onPressed(!favorited, id)
         setFavorited(!favorited);
       }
 

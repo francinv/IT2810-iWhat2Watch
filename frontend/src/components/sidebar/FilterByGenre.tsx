@@ -2,8 +2,8 @@ import React,{ FunctionComponent, useState } from "react";
 import { useAppDispatch } from "../../services/hooks";
 import { Dispatch } from "redux";
 import { setFilterGenres } from "../../pages/mainPageSlice";
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import { Title, Button } from "react-native-paper";
+import { FlatList, StyleSheet, View } from "react-native";
+import { Title } from "react-native-paper";
 import { useFonts } from "@expo-google-fonts/quicksand";
 import AppLoading from "expo-app-loading";
 import { CheckBox } from 'react-native-elements'
@@ -12,6 +12,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
   setFilter: (filter:object) => dispatch(setFilterGenres(filter)),
 });
 
+/* All genres */
 const genres = [
   {id:"1", name: "Action", isChecked: false}, 
   {id: "2", name: "Adventure", isChecked: false},
@@ -49,7 +50,12 @@ const FilterGenreComp: FunctionComponent = () => {
     'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf'),
 })
 
-  const onSelectionsChange = (id:string) => {
+/**
+ * Updates selected genres.
+ * 
+ * @param id id of genre
+ */  
+const onSelectionsChange = (id:string) => {
     let temp = selectedGenres.map((genre) => {
       if (id === genre.id) {
         return { ...genre, isChecked: !genre.isChecked };
@@ -60,6 +66,11 @@ const FilterGenreComp: FunctionComponent = () => {
     updateFilters(temp);
   }
 
+  /**
+   * Method used to filter by genre.
+   * 
+   * @param genreArray All selected genre to filter by
+   */
   function updateFilters(genreArray: Array<{ id: string; name: string; isChecked: boolean; }>) {
     var filteredArray = genreArray.filter(genre => genre.isChecked === true).map(({name}) => name)
     setFilter(filteredArray)

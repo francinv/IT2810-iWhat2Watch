@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { selectUserName, selectUserIsLoggedIn } from "../../services/selectors"
+import React from "react";
+import { selectUserIsLoggedIn, selectUserName } from "../../services/selectors"
 import { useSelector } from "react-redux";
 import {
     formatDateAsString,
@@ -23,16 +23,20 @@ interface ModalProps {
  * @param movie to show, onCloseClick function to close/open the modal
  * @returns a Modal with MovieDetal.
  */
-const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisible}) => {
+const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisible}:ModalProps) => {
     const userName = useSelector(selectUserName)
-    const isLoggedIn = useState(true);
+    const isLoggedIn = useSelector(selectUserIsLoggedIn)
     const [fontsLoaded] = useFonts({
         'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf'),
         'Quicksand-Medium': require('../../assets/fonts/Quicksand-Medium.ttf'),
         'Quicksand-SemiBold': require('../../assets/fonts/Quicksand-Medium.ttf'),
     })
 
+    /* Returns an array with the current user (username) removed */
     function getReducedArray(array: Array<string>): Array<string> {
+        if (userName === undefined) {
+            return []
+        }
         const temp = [...array]
         const index = temp.indexOf(userName, 0);
         if (index > -1) {
@@ -41,6 +45,7 @@ const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisi
         return temp;
     }
 
+    /* Shows the modal based on the prop value from parent component */
     if(isModalVisible){
         return (
                 <Modal
