@@ -83,7 +83,9 @@ For å kjøre frontend må man:
 1. `cd frontend/`
 2. `yarn install`
 3. `yarn start`
-4. Følg instruks i terminalen og velg ønsket måte å kjøre appen på.
+4. Følg instruks i terminalen og velg ønsket måte å kjøre appen på. Web-versjon kan være ustabil, ettersom det er brukt react-native-komponenter.
+####Andre valgmuligheter for kjøring av app.
+![](https://i.imgur.com/PvdlXLX.jpg)
 
 **Vi opplever i blant problemer med scrolling på Android. Scrolling fungerer ikke som det skal, man må i det tilfelle scrolle med piltastene. Dette problemet er derimot ikke på iOS. Med Android har vi kun hatt mulighet til å kjøre med en emulator, og ikke gjennom Expo Go ettersom vi ikke har tilgang på en Android telefon. (https://piazza.com/class/ksk8rtnewz56sh?cid=257)**
 
