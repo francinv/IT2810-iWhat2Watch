@@ -43,7 +43,7 @@ const SearchComp: FunctionComponent = () => {
                 <Searchbar
                     placeholder="Search..."
                     onChangeText={onChangeSearch}
-                    value={localSearch}
+                    value={localSearch ? localSearch : ""}
                     iconColor="black"
                     inputStyle={{
                         fontFamily: 'Quicksand-Regular',
