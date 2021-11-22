@@ -13,7 +13,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 });
 
 const SearchComp: FunctionComponent = () => {
-    const [localSearch, setLocalSearch] = useState<string>("");
+    const [localSearch, setLocalSearch] = useState<string | null>(null);
     const { setSearch } = actionDispatch(useAppDispatch());
     let [fontsLoaded] = useFonts({
         'Quicksand-Medium': require('../../assets/fonts/Quicksand-Medium.ttf'),
@@ -21,7 +21,7 @@ const SearchComp: FunctionComponent = () => {
     })
 
     const searchEvent = () => {
-        setSearch(localSearch);
+        if (localSearch !== null) setSearch(localSearch);
     }
 
     const onChangeSearch = (query:string) => setLocalSearch(query);
