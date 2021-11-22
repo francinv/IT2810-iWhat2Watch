@@ -6,6 +6,7 @@ const initialState: IUserState = {
   userName: undefined,
 };
 
+/* Reducer and actions that changes state */
 const UserSlice = createSlice({
   name: "userSlice",
   initialState,

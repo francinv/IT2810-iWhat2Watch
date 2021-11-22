@@ -33,11 +33,13 @@ const LoginModal:React.FC<SignInProps> = ({isLoginModalVisible, setIsModalVisibl
     'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf'),
   })
 
+  /* Calls redux dispatch to change state when logging out and removes modal */
   const handleLogOut = () => {
     logOut()
     setIsModalVisible(false);
   }
 
+  /* Calls redux dispatch to log in and set user and removes modal */
   const handleSubmit = () => {
     setUser(value);
     setIsModalVisible(false);

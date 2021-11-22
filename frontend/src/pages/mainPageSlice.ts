@@ -12,6 +12,7 @@ const initialState: IMoviesList = {
   sortByCriteria: "",
 };
 
+/* Redux toolkit reducers with action and reducer in one method */
 const MainPageSlice = createSlice({
   name: "mainPage",
   initialState,
