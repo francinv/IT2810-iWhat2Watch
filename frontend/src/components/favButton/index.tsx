@@ -6,7 +6,7 @@ interface FavButtonProps {
     isFavorited: boolean;
     userName: string;
     id: string;
-    onPressed: (newValue: boolean) => void;
+    onPressed: (newValue: boolean, id: string) => void;
   }
 
 /**
@@ -41,6 +41,9 @@ const FavButton: React.FC<FavButtonProps> =({isFavorited, userName, id, onPresse
         })
     }
     }
+
+    /* Sets movie as favorite through API and changes local state through callback 
+    to parent component. The state is changed to keep track of local favorites not stored in redux store. */
 
     function clickFavorite(didUserFavorite: boolean) {
         if (didUserFavorite) {

@@ -63,12 +63,13 @@ export const MainPage: FunctionComponent = () => {
     }
   };
 
+  /* Fetches new set of movies if one of the filtering or sorting values are changed */
   useEffect(() => {
     fetchMovies();
   }, [filterSearchQuery, filterGenre, filterDateStart, filterDateEnd, sortBy]);
 
+  /* Shows login modal to opposite of previous state */
   useEffect(() => {
-
   }, [width, height])
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const toggleLogInModal = () => {

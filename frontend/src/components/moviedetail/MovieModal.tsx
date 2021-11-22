@@ -32,6 +32,7 @@ const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisi
         'Quicksand-SemiBold': require('../../assets/fonts/Quicksand-Medium.ttf'),
     })
 
+    /* Returns an array with the current user (username) removed */
     function getReducedArray(array: Array<string>): Array<string> {
         if (userName === undefined) {
             return []
@@ -44,6 +45,7 @@ const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisi
         return temp;
     }
 
+    /* Shows the modal based on the prop value from parent component */
     if(isModalVisible){
         return (
                 <Modal

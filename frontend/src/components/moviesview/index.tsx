@@ -16,6 +16,7 @@ import { LogBox } from 'react-native';
  * The movies are fetched form the database.
  */
 
+/* Interface for object with movie */
 interface IMovieObject {
   item: searchMovies_getMoviesBySearch;
 }
@@ -24,6 +25,7 @@ interface MovieTableProps {
   fetchMore: () => void;
 }
 
+/* Interface for object with favorite information */
 type favoritedMovie = {
   id:string;
   isFavorited:boolean;
@@ -42,6 +44,8 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
     'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf')
   })
 
+  /* Returns true or false based on component state. If component state does not contain a value for the movie,
+  the favorited value for the logged in user of the movie is returned */
   function isFavorited(movie: searchMovies_getMoviesBySearch): boolean {
     if (movie === null || !userName ) {
       return false;
@@ -59,8 +63,8 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
 }, [])
 
 
+  /* Returns a reduced array with the favorited movie only occuring once, if it already exists, update with new value */
   function handleFavorize(newValue: boolean, id: string) {
-    
     let alreadyInFavorites = favoritedInSession.filter(favoritedInSession => favoritedInSession.id === id)
     if (alreadyInFavorites.length > 0) {
       let newFav = alreadyInFavorites[0]

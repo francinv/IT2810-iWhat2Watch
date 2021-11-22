@@ -12,10 +12,12 @@ const initialState: IMoviesList = {
   sortByCriteria: "",
 };
 
+/* Redux toolkit reducers with action and reducer in one method */
 const MainPageSlice = createSlice({
   name: "mainPage",
   initialState,
   reducers: {
+    /* Adds payload to movie state and increases page offset */
     setMovies(state, action) {
       state.nextPage += 1;
       if (state.movies !== null) {
