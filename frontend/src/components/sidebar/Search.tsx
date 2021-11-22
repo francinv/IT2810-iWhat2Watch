@@ -21,7 +21,7 @@ const SearchComp: FunctionComponent = () => {
     })
 
     const searchEvent = () => {
-      setSearch(localSearch);
+        if (localSearch !== "") setSearch(localSearch);
     }
 
     const onChangeSearch = (query:string) => setLocalSearch(query);
