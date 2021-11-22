@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useState } from "react";
-import { StyleSheet, ScrollView, SafeAreaView, View } from "react-native";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { StyleSheet, ScrollView, SafeAreaView, View, LogBox } from "react-native";
 
 import FilterByYear from "./FilterByYear";
 import FilterGenreComp from "./FilterByGenre";
@@ -16,6 +16,7 @@ interface SideBarProps {
 }
 
 const SideBar: FunctionComponent<SideBarProps> = ({isSideBarVisible, closeSideBar}) => {
+
 
 
   return (
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     display:'flex',
   },
   scrollContainer: {
-    paddingBottom:50,
+    paddingBottom:450,
   }
 })
 export default SideBar;

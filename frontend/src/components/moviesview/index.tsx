@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectMovies, selectUserIsLoggedIn, selectUserName } from "../../services/selectors";
 import { searchMovies_getMoviesBySearch } from "../../services/__generated__/searchMovies"
 import FavButton from "../favButton";
 import { Card, Title } from "react-native-paper";
-import { StyleSheet, SafeAreaView, FlatList, View } from "react-native";
+import { StyleSheet, SafeAreaView, FlatList, View, Text } from "react-native";
 import { useFonts } from "@expo-google-fonts/inter";
 import AppLoading from 'expo-app-loading';
 import MovieModal from "../moviedetail/MovieModal";
+import { LogBox } from 'react-native';
+
 
 /**
  * This is a component displaying all the movies. 
- * We are using MUI Card components and rendering 
- * them based on movies fetched form the database.
+ * The movies are fetched form the database.
  */
 
 interface IMovieObject {
@@ -51,6 +52,12 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
     }
     return movie.favoritedByUser.includes(userName)
   }
+
+  useEffect(() => {
+    //Flatlist needs to be in ScrollView in our case.
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+}, [])
+
 
   function handleFavorize(newValue: boolean, id: string) {
     
@@ -97,6 +104,7 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
     );
   };
 
+
   if (!fontsLoaded) {
     return <AppLoading />
   } else {
@@ -111,8 +119,9 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
               paddingBottom:350,
             }}
             onEndReached={fetchMore}
-          />
+          > 
           {modalMovie ? <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/> : null}
+          </FlatList>
         </SafeAreaView>
     )
   }
