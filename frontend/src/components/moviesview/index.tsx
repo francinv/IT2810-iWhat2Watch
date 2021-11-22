@@ -29,7 +29,7 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
   const isLoggedIn = useSelector(selectUserIsLoggedIn);
   const userName = useSelector(selectUserName)
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalMovie, setModalMovie] = useState(null);
+  const [modalMovie, setModalMovie] = useState<searchMovies_getMoviesBySearch>();
 
   const [fontsLoaded] = useFonts({
     'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf')
@@ -88,7 +88,7 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
             }}
             onEndReached={fetchMore}
           />
-          <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/>
+          {modalMovie ? <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/> : null}
         </SafeAreaView>
     )
   }

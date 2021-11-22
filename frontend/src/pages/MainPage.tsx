@@ -124,8 +124,4 @@ export const MainPage: FunctionComponent = () => {
   );
 };
 
-const inlineStyles = StyleSheet.create({
-  containerStyle: {
-  }
-})
 
