@@ -23,6 +23,11 @@ interface MovieTableProps {
   fetchMore: () => void;
 }
 
+type favoritedMovie = {
+  id:string;
+  isFavorited:boolean;
+}
+
 
 const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
   const movies = useSelector(selectMovies);
@@ -30,6 +35,7 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
   const userName = useSelector(selectUserName)
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMovie, setModalMovie] = useState<searchMovies_getMoviesBySearch>();
+  const [favoritedInSession, setFavoritedInSession] = useState<Array<favoritedMovie>>([]);
 
   const [fontsLoaded] = useFonts({
     'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf')
@@ -39,7 +45,25 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
     if (movie === null || !userName ) {
       return false;
     }
+    let favoritedArray = favoritedInSession.filter(favoritedInSession => favoritedInSession.id === movie.id)
+    if (favoritedArray.length > 0 ) {
+      return favoritedArray[0].isFavorited;
+    }
     return movie.favoritedByUser.includes(userName)
+  }
+
+  function handleFavorize(newValue: boolean, id: string) {
+    
+    let alreadyInFavorites = favoritedInSession.filter(favoritedInSession => favoritedInSession.id === id)
+    if (alreadyInFavorites.length > 0) {
+      let newFav = alreadyInFavorites[0]
+      newFav.isFavorited = newValue
+    } else {
+      setFavoritedInSession((state) => [...state, {id:id, isFavorited:newValue}])
+    }
+
+
+    
   }
 
   const Movie = ({item}: IMovieObject) => (
@@ -57,7 +81,7 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
       </View>
       <Card.Content style={styles.contentContainer}>
         { isLoggedIn
-          ? <FavButton isFavorited={isFavorited(item)} userName={userName !== undefined ? userName : ""} id={item.id}/>
+          ? <FavButton isFavorited={isFavorited(item)} userName={userName !== undefined ? userName : ""} id={item.id} onPressed = {(newValue: boolean, id: string) => handleFavorize(newValue, id)}/>
           : null
         }
         <Title style={styles.title}>{item?.title}</Title>

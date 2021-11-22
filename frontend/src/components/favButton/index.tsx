@@ -6,7 +6,8 @@ interface FavButtonProps {
     isFavorited: boolean;
     userName: string;
     id: string;
-}
+    onPressed: (newValue: boolean) => void;
+  }
 
 /**
  * This is a component for favoriting a movie. We take in three props. 
@@ -15,7 +16,7 @@ interface FavButtonProps {
  * @param isFavorited, userName, id 
  * @returns a button with Heart. 
  */
-const FavButton: React.FC<FavButtonProps> =({isFavorited, userName, id}) => {
+const FavButton: React.FC<FavButtonProps> =({isFavorited, userName, id, onPressed}) => {
 
     const [favorited, setFavorited] = useState(isFavorited);
 
@@ -48,6 +49,7 @@ const FavButton: React.FC<FavButtonProps> =({isFavorited, userName, id}) => {
         else {
             removeFavorite();
         }
+        onPressed(!favorited, id)
         setFavorited(!favorited);
       }
 
