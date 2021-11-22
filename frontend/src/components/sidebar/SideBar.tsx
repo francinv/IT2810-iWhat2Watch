@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
-import { StyleSheet, ScrollView, SafeAreaView, View, LogBox } from "react-native";
+import React, { FunctionComponent, } from "react";
+import { StyleSheet, ScrollView,View } from "react-native";
 
 import FilterByYear from "./FilterByYear";
 import FilterGenreComp from "./FilterByGenre";
@@ -8,14 +8,9 @@ import SearchComp from './Search';
 
 /**
  * Global SideBar
+ * Menu that contains search and filter options
  */
-
-interface SideBarProps {
-  isSideBarVisible: boolean;
-  closeSideBar: () => void;
-}
-
-const SideBar: FunctionComponent<SideBarProps> = ({isSideBarVisible, closeSideBar}) => {
+const SideBar: FunctionComponent = () => {
 
 
 

@@ -51,7 +51,7 @@ const FilterByYear: FunctionComponent = () => {
         >Filter by year</Title>
         <TextInput
           label="From"
-          keyboardType="numeric"
+          keyboardType="number-pad"
           placeholder="Type year here"
           maxLength={4}
           onChangeText={(newValue: string) => {
@@ -60,7 +60,7 @@ const FilterByYear: FunctionComponent = () => {
         />
         <TextInput
           label="To"
-          keyboardType="numeric"
+          keyboardType="number-pad"
           placeholder="Type year here"
           maxLength={4}
           onChangeText={(newValue: string) => {
