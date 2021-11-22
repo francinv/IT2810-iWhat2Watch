@@ -33,9 +33,14 @@ const LoginModal:React.FC<SignInProps> = ({isLoginModalVisible, setIsModalVisibl
     'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf'),
   })
 
+  const handleLogOut = () => {
+    logOut()
+    setIsModalVisible(false);
+  }
+
   const handleSubmit = () => {
     setUser(value);
-    setIsModalVisible;
+    setIsModalVisible(false);
   }
 
   if (!fontsLoaded) {
@@ -81,7 +86,7 @@ const LoginModal:React.FC<SignInProps> = ({isLoginModalVisible, setIsModalVisibl
               >
                 <Button
                   mode="contained"
-                  onPress={() => logOut()}
+                  onPress={handleLogOut}
                   color="white"
                   labelStyle={{
                     fontFamily: 'Quicksand-Regular',
