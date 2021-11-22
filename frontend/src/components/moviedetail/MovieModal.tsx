@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { selectUserName } from "../../services/selectors"
+import { selectUserIsLoggedIn, selectUserName } from "../../services/selectors"
 import { useSelector } from "react-redux";
 import {
     formatDateAsString,
@@ -23,9 +23,9 @@ interface ModalProps {
  * @param movie to show, onCloseClick function to close/open the modal
  * @returns a Modal with MovieDetal.
  */
-const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisible}) => {
+const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisible}:ModalProps) => {
     const userName = useSelector(selectUserName)
-    const isLoggedIn = useState(true);
+    const isLoggedIn = useSelector(selectUserIsLoggedIn)
     const [fontsLoaded] = useFonts({
         'Quicksand-Regular': require('../../assets/fonts/Quicksand-Regular.ttf'),
         'Quicksand-Medium': require('../../assets/fonts/Quicksand-Medium.ttf'),
