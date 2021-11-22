@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { TouchableOpacity, Text, StyleSheet, ScrollView, SafeAreaView, View } from "react-native";
+import { StyleSheet, ScrollView, SafeAreaView, View } from "react-native";
 
 import FilterByYear from "./FilterByYear";
 import FilterGenreComp from "./FilterByGenre";

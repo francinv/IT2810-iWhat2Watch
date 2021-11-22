@@ -8,8 +8,6 @@ import { StyleSheet, SafeAreaView, FlatList, View } from "react-native";
 import { useFonts } from "@expo-google-fonts/inter";
 import AppLoading from 'expo-app-loading';
 import MovieModal from "../moviedetail/MovieModal";
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-
 
 /**
  * This is a component displaying all the movies. 

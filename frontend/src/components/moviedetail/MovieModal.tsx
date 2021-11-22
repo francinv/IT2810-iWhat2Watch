@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { selectUserName, selectUserIsLoggedIn } from "../../services/selectors"
+import { selectUserName } from "../../services/selectors"
 import { useSelector } from "react-redux";
 import {
     formatDateAsString,
@@ -33,6 +33,9 @@ const MovieModal: React.FC<ModalProps> = ({movie, setIsModalVisible, isModalVisi
     })
 
     function getReducedArray(array: Array<string>): Array<string> {
+        if (userName === undefined) {
+            return []
+        }
         const temp = [...array]
         const index = temp.indexOf(userName, 0);
         if (index > -1) {

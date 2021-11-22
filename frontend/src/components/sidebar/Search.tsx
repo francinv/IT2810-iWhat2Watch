@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../services/hooks";
 import { Dispatch } from "redux";
-import { useSelector } from "react-redux";
 import { setSearchQuery } from "../../pages/mainPageSlice";
 import { FunctionComponent } from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { Button, Searchbar, Title } from "react-native-paper";
 import { useFonts } from "@expo-google-fonts/quicksand";
 import AppLoading from "expo-app-loading";
-import FilterByGenre from "./FilterByGenre";
-
 
 const actionDispatch = (dispatch: Dispatch) => ({
     setSearch: (query: string) => dispatch(setSearchQuery(query)),

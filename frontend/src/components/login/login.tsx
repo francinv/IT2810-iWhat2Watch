@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
-import { Portal, Text, Button, Provider, Title, TextInput, IconButton } from 'react-native-paper';
+import { Button, Title, TextInput, IconButton } from 'react-native-paper';
 import { useAppDispatch } from '../../services/hooks';
 import { loginAsUser, logOut } from './loginslice';
 import { useState } from 'react';
