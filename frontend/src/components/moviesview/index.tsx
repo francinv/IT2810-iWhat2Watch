@@ -124,8 +124,8 @@ const MovieTable: React.FC<MovieTableProps> = ({fetchMore}) => {
             }}
             onEndReached={fetchMore}
           > 
-          {modalMovie ? <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/> : null}
           </FlatList>
+          {modalMovie ? <MovieModal isModalVisible={modalVisible} setIsModalVisible={setModalVisible} movie={modalMovie}/> : null}
         </SafeAreaView>
     )
   }

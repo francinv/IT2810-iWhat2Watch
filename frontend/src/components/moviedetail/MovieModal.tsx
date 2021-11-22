@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { selectUserIsLoggedIn, selectUserName } from "../../services/selectors"
 import { useSelector } from "react-redux";
 import {
