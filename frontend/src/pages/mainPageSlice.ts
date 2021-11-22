@@ -17,6 +17,7 @@ const MainPageSlice = createSlice({
   name: "mainPage",
   initialState,
   reducers: {
+    /* Adds payload to movie state and increases page offset */
     setMovies(state, action) {
       state.nextPage += 1;
       if (state.movies !== null) {
